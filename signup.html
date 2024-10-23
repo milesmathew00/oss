@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="stylez.css">
+
+    <script>
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+    
+            if (password !== confirmPassword) {
+                alert("Password is not match");
+                return false;
+            }
+    
+            return true;
+        }
+    </script>
+    
+<style>
+/* Reset default styles */
+body, h2, p, label, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light and dark mode styling */
+.light-mode {
+    background-color: #ffffff;
+    color: #333;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Switch styling */
+.switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.slider input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .toggle {
+    background-color: #2196F3;
+}
+
+input:checked + .toggle:before {
+    transform: translateX(26px);
+}
+
+/* Signup container styling */
+.signup-container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Logo styling */
+.logo {
+    width: 120px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space below the logo */
+}
+
+/* Form styling */
+.signup-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.signup-container p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.signup-container a {
+    color: #2196F3;
+    text-decoration: none;
+}
+
+.signup-container a:hover {
+    text-decoration: underline;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    text-align: left;
+    color: #666;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #2196F3;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0b7dda;
+}
+
+</style>
+
+</head>
+<body >
+    
+    <!--Navigation Bar-->
+
+    <div class="signup-container dark-mode">
+        <img class="logo" src="images/logo.jpg" alt="Logo">
+        <h2>Create new Account</h2>
+        <form action="verify.php" method="POST">
+            <p>Already Registered?<a href="signin.html">Login</a></p>
+             
+            <label for="first_name">First Name</label>
+            <input type="text" name="firstname" placeholder="First Name" id="firstname" required>
+
+            <label for="last_name">Last Name</label>
+            <input type="text" name="lastname" placeholder="Last Name" id="lastname" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password" required>
+
+            <label for="address">Address:</label>
+            <input type="text" name="address" placeholder="Address" id="address" required>
+
+            <input type="submit" value="Create Account">
+        </form>
+    </div>
+    <script>
+        // Function to toggle between light and dark mode
+        function toggleMode() {
+            const body = document.body;
+            const signupContainer = document.querySelector('.signup-container');
+            const isDarkMode = body.classList.contains('dark-mode');
+            body.classList.toggle('dark-mode', !isDarkMode);
+            body.classList.toggle('light-mode', isDarkMode);
+            signupContainer.classList.toggle('dark-mode', !isDarkMode);
+            signupContainer.classList.toggle('light-mode', isDarkMode);
+            localStorage.setItem('mode', isDarkMode ? 'light' : 'dark');
+        }
+
+        // Check local storage for mode preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const mode = localStorage.getItem('mode') || 'dark';
+            const modeToggle = document.getElementById('modeToggle');
+            if (mode === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                document.querySelector('.signup-container').classList.remove('dark-mode');
+                document.querySelector('.signup-container').classList.add('light-mode');
+                modeToggle.checked = true;
+            }
+            modeToggle.addEventListener('change', toggleMode);
+        });
+    </script>
+</body>
+</html>
