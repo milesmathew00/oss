@@ -2,6 +2,48 @@
 require_once('tcpdf/tcpdf.php');
 include 'db.php';
 
+// Create a custom PDF class to include header
+class CustomPDF extends TCPDF {
+    public function Header() {
+        // Set a Y position to create space above the header
+        $this->SetY(100); // Adjust this value to add space before the header
+
+        // Left logo
+        $left_logo = 'images/main.png'; // Path to the left logo
+        if (file_exists($left_logo)) {
+            $this->Image($left_logo, 10, 10, 25); // Adjust size and position
+        }
+
+        // Right logo
+        $right_logo = 'images/logo.jpg'; // Path to the right logo
+        if (file_exists($right_logo)) {
+            $this->Image($right_logo, 175, 10, 25); // Adjust size and position
+        }
+
+        // Centered header text
+        $this->SetY(15); // Set Y position for center text
+        $this->SetFont('helvetica', 'B', 10); // Smaller font
+        $this->Cell(0, 5, 'Republic of the Philippines', 0, 1, 'C');
+        
+        $this->SetFont('helvetica', 'B', 12);
+        $this->Cell(0, 5, 'Bulacan State University', 0, 1, 'C');
+        
+        $this->SetFont('helvetica', 'B', 10);
+        $this->Cell(0, 5, 'SAN RAFAEL CAMPUS', 0, 1, 'C');
+        
+        $this->SetFont('helvetica', 'I', 9);
+        $this->Cell(0, 5, 'Guidance and Counseling Services Center Student Cumulative Record', 0, 1, 'C');
+        
+        $this->SetFont('helvetica', '', 9);
+        $this->Cell(0, 5, 'Plaridel By-pass Road, Brgy. San Roque, San Rafael, Bulacan', 0, 1, 'C');
+        $this->Cell(0, 5, 'Tel/Fax: (044) 816-3264', 0, 1, 'C');
+        
+        // Add a horizontal line below the header
+        $this->Ln(2); // Line break
+        $this->Cell(0, 0, '', 'T'); // Top border line
+    }
+}
+
 // Get filter variables from the query parameters
 $filter_course_section = isset($_GET['course_section']) ? mysqli_real_escape_string($con, $_GET['course_section']) : '';
 $filter_birth_order = isset($_GET['birth_order']) ? mysqli_real_escape_string($con, $_GET['birth_order']) : '';
@@ -38,13 +80,12 @@ if (!$result) {
 }
 
 // Create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf = new CustomPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // Set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Your Name');
 $pdf->SetTitle('Filtered Responses Report');
-$pdf->SetHeaderData('', 0, 'Filtered Responses Report', 'Filters Applied');
 
 // Set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -54,32 +95,39 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // Set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$top_margin = 50; // Adjust this value for top margin
+$pdf->SetMargins(PDF_MARGIN_LEFT, $top_margin, PDF_MARGIN_RIGHT); // Set the margins
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->AddPage();
 
 // Add content to PDF
-$html = '<h1>Filtered Form Responses</h1>';
-$html .= '<table border="1" cellpadding="4"><thead><tr>';
-$html .= '<th>ID</th><th>Email</th><th>Date & Time</th>';
-$html .= '<th>Student Number</th><th>Name</th><th>Course & Section</th>';
-$html .= '<th>Birth Order</th><th>Family Income</th>';
-$html .= '<th>Religion</th><th>No of Siblings</th>';
-$html .= '<th>Marriage Status</th></tr></thead><tbody>';
+$html = '<h1 style="font-size: 14px;">Filtered Form Responses</h1>'; // Optional: Reduce the title font size
+$html .= '<table border="1" cellpadding="4" style="font-size: 8px; text-align: left;">'; // Set a smaller font size for the entire table
+$html .= '<thead style="background-color: #f2f2f2;"><tr>'; // Optional: Set a background color for the header
+$html .= '<th style="padding: 4px;">Email</th>';
+$html .= '<th style="padding: 4px;">Date & Time</th>';
+$html .= '<th style="padding: 4px;">Student Number</th>';
+$html .= '<th style="padding: 4px;">Name</th>';
+$html .= '<th style="padding: 4px;">Course & Section</th>';
+$html .= '<th style="padding: 4px;">Birth Order</th>';
+$html .= '<th style="padding: 4px;">Family Income</th>';
+$html .= '<th style="padding: 4px;">Religion</th>';
+$html .= '<th style="padding: 4px;">No of Siblings</th>';
+$html .= '<th style="padding: 4px;">Marriage Status</th>';
+$html .= '</tr></thead><tbody>';
 
 while ($row = mysqli_fetch_assoc($result)) {
     $html .= '<tr>';
-    $html .= '<td>' . htmlspecialchars($row['id']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['email']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['datetime']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['student_number']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['name']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['course_section']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['birth_order']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['family_income']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['religion']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['number_of_siblings']) . '</td>';
-    $html .= '<td>' . htmlspecialchars($row['marriage_status']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['email']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['datetime']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['student_number']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['name']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['course_section']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['birth_order']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['family_income']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['religion']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['number_of_siblings']) . '</td>';
+    $html .= '<td style="padding: 4px;">' . htmlspecialchars($row['marriage_status']) . '</td>';
     $html .= '</tr>';
 }
 

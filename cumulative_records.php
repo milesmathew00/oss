@@ -266,7 +266,7 @@ mysqli_close($con);
                     <tr>
                         
                         <th>Email</th>
-                        
+                        <th>Date&Time</th>
                         <th>Student Number</th>
                         <th>Name</th>
                         <th>Course & Section</th>
@@ -282,7 +282,6 @@ mysqli_close($con);
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row['id']); ?></td>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
                             <td><?php echo htmlspecialchars($row['datetime']); ?></td>
                             <td><?php echo htmlspecialchars($row['student_number']); ?></td>
