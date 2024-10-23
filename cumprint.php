@@ -1,5 +1,5 @@
 <?php
-require_once('tcpdf/tcpdf.php');
+require_once('TCPDF/tcpdf.php');
 include 'db.php';
 
 // Create a custom PDF class to include header

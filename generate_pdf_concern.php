@@ -1,5 +1,5 @@
 <?php
-require_once('tcpdf/tcpdf.php');
+require_once('TCPDF/tcpdf.php');
 
 // Create new PDF document
 $pdf = new TCPDF(TCPDF_UNIT_MM, TCPDF_PAGE_FORMAT_A4, TCPDF_ORIENTATION_PORTRAIT, true, 'UTF-8', false);

@@ -1,5 +1,5 @@
 <?php
-require_once('tcpdf/tcpdf.php'); // Adjust the path to your TCPDF library
+require_once('TCPDF/tcpdf.php'); // Adjust the path to your TCPDF library
 
 include 'db.php'; // Include your database connection
 

@@ -1,5 +1,5 @@
 <?php
-require_once('tcpdf/tcpdf.php'); // Ensure you have the TCPDF library
+require_once('TCPDF/tcpdf.php'); // Ensure you have the TCPDF library
 
 // Extend TCPDF to create a custom header
 class CustomPDF extends TCPDF {

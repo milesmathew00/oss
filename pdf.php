@@ -1,16 +1,5 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "miles";
-$port = 3306;
-
-$con = new mysqli($servername, $username, $password, $dbname, $port);
-
-if ($con->connect_error) {
-    die("Connection failed: " . $con->connect_error);
-}
+include 'db.php';
 
 // Check if ID is set
 if (isset($_GET['id'])) {
