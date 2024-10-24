@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Oct 09, 2024 at 08:31 AM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 23, 2024 at 12:04 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,46 +29,34 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `aggregated_concerns` (
   `concern` varchar(255) NOT NULL,
-  `selection_count` int(11) DEFAULT 0,
-  `user_id` int(11) DEFAULT NULL,
-  `course_section` varchar(255) DEFAULT NULL
+  `selection_count` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `aggregated_concerns`
 --
 
-INSERT INTO `aggregated_concerns` (`concern`, `selection_count`, `user_id`, `course_section`) VALUES
-('1.Feeling tired much of the time', 1, NULL, 'BSIT 4A G2'),
-('10.Graduation threatened by lack of funds', 1, NULL, 'BSIT 4A G2'),
-('11.Too little chance to get into sports', 2, NULL, 'BSIT 4A G2'),
-('12.Wanting to be more popular', 2, NULL, 'BSIT 4A G2'),
-('13.Worrying about unimportant things', 2, NULL, 'BSIT 4A G2'),
-('14.Getting low grades', 2, NULL, 'BSIT 4A G2'),
-('15.Doubting wisdom of my vocational choice', 2, NULL, 'BSIT 4A G2'),
-('16.Dull classes', 2, NULL, 'BSIT 4A G2'),
-('17.Being overweight', 2, NULL, 'BSIT 4A G2'),
-('18.Needing money for graduate training', 2, NULL, 'BSIT 4A G2'),
-('19.Too little chance to enjoy art or music', 2, NULL, 'BSIT 4A G2'),
-('2.Going into debt for college expenses', 1, NULL, 'BSIT 4A G2'),
-('20.Being left out of things', 2, NULL, 'BSIT 4A G2'),
-('21.Nervousness', 1, NULL, 'BSIT 4A G1'),
-('22.Weak in writing', 1, NULL, 'BSIT 4A G1'),
-('23.Purpose in going to college not clear', 1, NULL, 'BSIT 4A G1'),
-('24.Too many poor teachers', 1, NULL, 'BSIT 4A G1'),
-('25.Not getting enough exercise', 1, NULL, 'BSIT 4A G1'),
-('26.Too many financial problems', 1, NULL, 'BSIT 4A G1'),
-('27.Too little chance to enjoy radio or television', 1, NULL, 'BSIT 4A G1'),
-('28.Having feelings of extreme loneliness', 1, NULL, 'BSIT 4A G1'),
-('29.Finding it difficult to relax', 1, NULL, 'BSIT 4A G1'),
-('3.Not enough time for recreation', 1, NULL, 'BSIT 4A G2'),
-('30.Weak in spelling or grammar', 1, NULL, 'BSIT 4A G1'),
-('4.Losing friends', 1, NULL, 'BSIT 4A G2'),
-('5.Taking things too seriously', 1, NULL, 'BSIT 4A G2'),
-('6.Forgetting things I’ve learned in school', 1, NULL, 'BSIT 4A G2'),
-('7.Restless at delay in starting life work', 1, NULL, 'BSIT 4A G2'),
-('8.College too indifferent to student needs', 1, NULL, 'BSIT 4A G2'),
-('9.Being underweight', 1, NULL, 'BSIT 4A G2');
+INSERT INTO `aggregated_concerns` (`concern`, `selection_count`) VALUES
+('1.Feeling tired much of the time', 4),
+('10.Graduation threatened by lack of funds', 4),
+('11.Too little chance to get into sports', 4),
+('12.Wanting to be more popular', 4),
+('13.Worrying about unimportant things', 4),
+('14.Getting low grades', 2),
+('15.Doubting wisdom of my vocational choice', 2),
+('16.Dull classes', 2),
+('17.Being overweight', 2),
+('18.Needing money for graduate training', 2),
+('19.Too little chance to enjoy art or music', 2),
+('2.Going into debt for college expenses', 2),
+('20.Being left out of things', 2),
+('3.Not enough time for recreation', 2),
+('4.Losing friends', 2),
+('5.Taking things too seriously', 2),
+('6.Forgetting things I’ve learned in school', 2),
+('7.Restless at delay in starting life work', 2),
+('8.College too indifferent to student needs', 2),
+('9.Being underweight', 2);
 
 -- --------------------------------------------------------
 
@@ -81,16 +69,32 @@ CREATE TABLE `selections` (
   `top_20` text DEFAULT NULL,
   `top_5` text DEFAULT NULL,
   `concern` varchar(255) NOT NULL,
-  `selection_count` int(11) DEFAULT 1
+  `selection_count` int(11) DEFAULT 1,
+  `submitted` int(1) DEFAULT 0,
+  `year_level` int(11) NOT NULL,
+  `course_section` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `selections`
 --
 
-INSERT INTO `selections` (`user_id`, `top_20`, `top_5`, `concern`, `selection_count`) VALUES
-(1, '1.Feeling tired much of the time,2.Going into debt for college expenses,3.Not enough time for recreation,4.Losing friends,5.Taking things too seriously,6.Forgetting things I’ve learned in school,7.Restless at delay in starting life work,8.College too indifferent to student needs,9.Being underweight,10.Graduation threatened by lack of funds,11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things,14.Getting low grades,15.Doubting wisdom of my vocational choice,16.Dull classes,17.Being overweight,18.Needing money for graduate training,19.Too little chance to enjoy art or music,20.Being left out of things', '1.Feeling tired much of the time,2.Going into debt for college expenses,3.Not enough time for recreation,4.Losing friends,5.Taking things too seriously', '', 1),
-(5, '11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things,14.Getting low grades,15.Doubting wisdom of my vocational choice,16.Dull classes,17.Being overweight,18.Needing money for graduate training,19.Too little chance to enjoy art or music,20.Being left out of things,21.Nervousness,22.Weak in writing,23.Purpose in going to college not clear,24.Too many poor teachers,25.Not getting enough exercise,26.Too many financial problems,27.Too little chance to enjoy radio or television,28.Having feelings of extreme loneliness,29.Finding it difficult to relax,30.Weak in spelling or grammar', '11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things,14.Getting low grades,15.Doubting wisdom of my vocational choice', '', 1);
+INSERT INTO `selections` (`user_id`, `top_20`, `top_5`, `concern`, `selection_count`, `submitted`, `year_level`, `course_section`) VALUES
+(22, '1.Feeling tired much of the time,2.Going into debt for college expenses,3.Not enough time for recreation,4.Losing friends,5.Taking things too seriously,6.Forgetting things I’ve learned in school,7.Restless at delay in starting life work,8.College too indifferent to student needs,9.Being underweight,10.Graduation threatened by lack of funds,11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things,14.Getting low grades,15.Doubting wisdom of my vocational choice,16.Dull classes,17.Being overweight,18.Needing money for graduate training,19.Too little chance to enjoy art or music,20.Being left out of things', '1.Feeling tired much of the time,10.Graduation threatened by lack of funds,11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things', '', 1, 1, 4, 'BSIT A'),
+(23, '1.Feeling tired much of the time,2.Going into debt for college expenses,3.Not enough time for recreation,4.Losing friends,5.Taking things too seriously,6.Forgetting things I’ve learned in school,7.Restless at delay in starting life work,8.College too indifferent to student needs,9.Being underweight,10.Graduation threatened by lack of funds,11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things,14.Getting low grades,15.Doubting wisdom of my vocational choice,16.Dull classes,17.Being overweight,18.Needing money for graduate training,19.Too little chance to enjoy art or music,20.Being left out of things', '1.Feeling tired much of the time,10.Graduation threatened by lack of funds,11.Too little chance to get into sports,12.Wanting to be more popular,13.Worrying about unimportant things', '', 1, 1, 4, 'BSIT 4D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test`
+--
+
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `course_section` varchar(255) DEFAULT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -106,7 +110,6 @@ CREATE TABLE `testing_service` (
   `percentile` int(11) NOT NULL,
   `description` text NOT NULL,
   `dimension_aspect` varchar(255) NOT NULL,
-  `test_date` date DEFAULT NULL,
   `date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -114,12 +117,9 @@ CREATE TABLE `testing_service` (
 -- Dumping data for table `testing_service`
 --
 
-INSERT INTO `testing_service` (`id`, `user_id`, `name_of_test`, `raw_score`, `percentile`, `description`, `dimension_aspect`, `test_date`, `date`) VALUES
-(2, 1, 'jay', 131, 213, 'tryy', 'try', NULL, NULL),
-(3, 1, 'jay', 235, 30, 'werty', 'ffg', NULL, NULL),
-(4, 1, '', 1233, 123, 'try', 'try', NULL, '2024-10-09'),
-(5, 1, 'sam', 1233, 123, 'try', 'try', NULL, '2024-10-09'),
-(6, 1, 'samp', 213141, 1412213, 'tqwf', 'try', NULL, '2024-10-09');
+INSERT INTO `testing_service` (`id`, `user_id`, `name_of_test`, `raw_score`, `percentile`, `description`, `dimension_aspect`, `date`) VALUES
+(30, 22, 'TEST1', 1, 1, 'TEST1', 'TETS1', '2024-10-23'),
+(31, 23, 'TEST2', 123, 123, '123', 'test2', '2024-10-23');
 
 -- --------------------------------------------------------
 
@@ -149,9 +149,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `subject`, `email`, `password`, `confirmation_status`, `profile_picture`, `address`, `confirmation_code`, `forgot_password_code`, `role`, `course_section`, `year_level`) VALUES
-(1, 'Jay R', 'Santos', '', 'jayrsantos114@gmail.com', 'aa', 'confirmed', 'photo_66ebe3142b007_b5.png', 'BLK-16 LOT-12 Bulacan Heights Catacte', '8UDIJ', '', 'user', 'BSIT 4A G2', 3),
-(4, 'Admin', 'User', '', 'admin@example.com', 'admin_hashed_password', 'confirmed', 'photo_66ebdb884784b_445586464_1680353762773390_637964440655407413_n.jpg', 'haha', 'Test', 'Lala', 'admin', NULL, NULL),
-(5, 'sample', 'Santos', '', 'jayrs@gmail.com', '123', 'confirmed', 'photo_66ebdb884784b_445586464_1680353762773390_637964440655407413_n.jpg', 'BLK-16 LOT-12 Bulacan Heights Catacte', 'Tph6W', '', 'user', 'BSIT 4A G1', 4);
+(1, 'Admin', 'User', '', 'admin@example.com', 'admin_hashed_password', 'confirmed', 'photo_66ebdb884784b_445586464_1680353762773390_637964440655407413_n.jpg', 'haha', 'Test', 'Lala', 'admin', NULL, NULL),
+(22, 'miles mathew', 'capangpangan', '', 'padoxscapangpangan@gmail.com', '12', 'confirmed', NULL, 'vizal', 'SiCUi', '', 'user', NULL, NULL),
+(23, 'xiean', 'tot', '', 'padoxscapangpanganthree@gmail.com', '123', 'confirmed', NULL, 'vizal', 'KxGdU', '', 'user', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -254,8 +254,8 @@ CREATE TABLE `user_data` (
 --
 
 INSERT INTO `user_data` (`id`, `email`, `datetime`, `student_number`, `name`, `nickname`, `course_section`, `mobile_number`, `sex_at_birth`, `gender_identity`, `dob`, `age`, `place_of_birth`, `religion`, `civil_status`, `permanent_address`, `present_address`, `living_status`, `employed`, `company_name`, `job_title`, `handicapped`, `emergency_contact`, `relation_to_emergency_contact`, `emergency_contact_number`, `birth_order`, `number_of_siblings`, `parents_marital_status`, `fathers_name`, `fathers_dob`, `fathers_age`, `fathers_education`, `fathers_occupation`, `fathers_company`, `mothers_maiden_name`, `mothers_dob`, `mothers_age`, `mothers_education`, `mothers_occupation`, `mothers_company`, `family_income`, `marriage_status`, `spouse_name`, `spouse_dob`, `spouse_education`, `spouse_occupation`, `spouse_company`, `spouse_contact`, `elem_school`, `elem_type`, `elem_years`, `elem_awards`, `junior_high_school`, `junior_type`, `junior_years`, `junior_awards`, `senior_high_school`, `senior_type`, `senior_years`, `senior_awards`, `college_course`, `college_type`, `college_years`, `college_awards`, `special_skills`, `hobbies`, `ambition`, `motto`, `characteristics`, `influence`, `concern`, `confidentiality`, `user_id`) VALUES
-(9, 'jayrsantos114@gmail.com', '2024-10-04 06:18:00', '2019201210', 'Santos, Jay R U.', 'J', 'Educ', '09918866661', 'Boy', 'Male', '2024-10-10', 231, 'BAL', 'Catholic', 'Single', 'a', 'a', 'With parents', 'No', 'a', 'a', 'a', 'a', 'a', 'a', 'Only Child', 2, 'Married', 'a', '2024-10-04', 2, 'Graduate School Graduate MAPhD', 'a', 'a', 'a', '2024-10-17', 2, 'Graduate School Graduate MAPhD', '2', 'f', '81,832-140,284.00PHP', 'Married', 'g', '2024-10-10', 'Graduate School Graduate MAPhD', 's', 's', 's', 's', 'Private', 's', 'a', 's', 'Private', 's', 's', 's', 'Private', 'a', 's', 's', 'Private', 's', 's', 's', 's', 's', 's', 's', 's', '', NULL, 1),
-(10, 'jayrsantos144@gmail.com', '2024-10-04 07:46:00', '2019201210', 'Santos, Jay  U.', 'Jayy', 'Business Administration', '0991886666111', 'Boy', 'Male', '2024-10-04', 13, 'BAL', '12', 'Single', 'ha', 'ha', 'With parents', 'Yes', 'a', 'ha', 'ha', 'ha', 'ha', 'ha', 'Youngest', 3, 'Married', 'ha', '2024-10-11', 4, 'Graduate School Graduate MAPhD', 'w', 'w', 'w', '2024-10-25', 2, 'Graduate School Graduate MAPhD', 'a', 's', 'Less Than 11,6990.00PHP', 'Married', 's', '2024-10-11', 'Graduate School Graduate MAPhD', 's', 's', 's', 's', 'Private', 's', 's', 's', 'Private', 's', 's', 's', 'Private', 's', 's', 's', 'Private', 's', 's', 's', 'a', 's', 's', 's', 's', 's', NULL, 5);
+(22, 'padoxscapangpangan@gmail.com', '2024-10-23 16:58:00', '2019201223', 'Capangpangan Miles Mathew C', 'Miles', 'BSIT 4A', '09762323454', 'Boy', 'Male', '2001-11-17', 22, 'valenzuela', 'catholic', 'Single', 'vizal', 'vizal', 'With parents', 'Yes', 'starlooks', 'sales', 'N/A', '09356386192', 'mother', '09762323454', 'First Born', 1, 'Married', 'doxie', '2024-10-23', 34, 'Graduate School Graduate MAPhD', 'driver', 'trucking', 'rosalie cunanan capangpangan', '2024-10-21', 45, 'Graduate School Graduate MAPhD', 'house wife', 'N/A', 'Less Than 11,6990.00PHP', 'Married', 'N/A', '0000-00-00', 'Graduate School Graduate MAPhD', 'N/A', 'N/A', 'N/A', 'aa', 'Private', 'aa', 'aa', 'aa', 'Private', 'aa', 'aa', 'aa', 'Private', 'FHB', 'H', 'hb', 'Private', 'WERT', 'a', 'ss', 'DB', 'DB', 'aa', 'DCJH', 'DHCB', 'AAA', NULL, 22),
+(23, 'padoxscapangpanganthree@gmail.com', '2024-10-23 17:07:00', '123', 'xiean', 'x', 'BSIT 4D', '09762323454', 'Boy', 'Male', '2024-10-23', 344, 'KJNBCKAJ', 'CATH', 'Single', 'ASAS', 'ASAS', 'With parents', 'Yes', 'ASA', 'ASA', 'N/A', 'aa', 'aa', 'aa', 'Second Born', 23, 'Married', 'aa', '2024-10-23', 23, 'Graduate School Graduate MAPhD', 'DJHCVS', 'asa', 'CHJB', '2024-10-23', 23, 'Graduate School Graduate MAPhD', 'aa', 'aa', 'Less Than 11,6990.00PHP', 'Married', 'N/A', '0000-00-00', 'Graduate School Graduate MAPhD', 'N/A', 'N/A', 'N/A', 'sa', 'Private', 'UDYG', 'FHSB', 'FJHV', 'Private', 'aa', 'aa', 'CB', 'Private', 'FHB', 'H', 'aa', 'Private', 'WERT', 'RTYU', 'aa', 'aa', 'A', 'A', 'A', 'aa', 'AA', NULL, 23);
 
 --
 -- Indexes for dumped tables
@@ -265,14 +265,19 @@ INSERT INTO `user_data` (`id`, `email`, `datetime`, `student_number`, `name`, `n
 -- Indexes for table `aggregated_concerns`
 --
 ALTER TABLE `aggregated_concerns`
-  ADD PRIMARY KEY (`concern`),
-  ADD UNIQUE KEY `concern` (`concern`,`course_section`);
+  ADD PRIMARY KEY (`concern`);
 
 --
 -- Indexes for table `selections`
 --
 ALTER TABLE `selections`
   ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `test`
+--
+ALTER TABLE `test`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `testing_service`
@@ -305,16 +310,22 @@ ALTER TABLE `user_data`
 --
 
 --
+-- AUTO_INCREMENT for table `test`
+--
+ALTER TABLE `test`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `testing_service`
 --
 ALTER TABLE `testing_service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_concerns`
@@ -326,7 +337,7 @@ ALTER TABLE `user_concerns`
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
