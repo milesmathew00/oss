@@ -517,9 +517,7 @@ mysqli_close($con);
            <select name="junior_type" id="junior_type"> 
           <option value="Private">Private</option>
           <option value="Public/Govermment">Public/Govermment</option>
-          <option value="Other">Other</option></select> </div> 
-
-           <br>
+          <option value="Other">Other</option></select> </div>
            
            <div class="form-group"> <label for="junior_years"><br>Inclusive Years(ex. 2016-2020):</label> 
            <input type="text" name="junior_years" id="junior_years"> </div> 

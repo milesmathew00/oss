@@ -1,8 +1,13 @@
 <?php
+// $servername = "localhost";
+// $username = "u297599468_guidancesrc";
+// $password = "Guidancesrc2024";
+// $dbname = "u297599468_guidancesrc_db";
 $servername = "localhost";
-$username = "u297599468_guidancesrc";
-$password = "Guidancesrc2024";
-$dbname = "u297599468_guidancesrc_db";
+$username = "root";
+$password = "";
+$dbname = "miles";
+$port = 3306;
 
 $con = new mysqli($servername, $username, $password, $dbname);
 

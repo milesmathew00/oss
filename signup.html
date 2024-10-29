@@ -1,242 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In</title>
-    <link rel="stylesheet" href="stylez.css">
+    <link rel="stylesheet" href="stylez.css" />
 
     <script>
-        function validatePassword() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirm_password").value;
-    
-            if (password !== confirmPassword) {
-                alert("Password is not match");
-                return false;
-            }
-    
-            return true;
+      function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+          alert("Password is not match");
+          return false;
         }
+
+        return true;
+      }
     </script>
-    
-<style>
-/* Reset default styles */
-body, h2, p, label, input {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-/* General body styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-}
+    <style>
+      /* Reset default styles */
+      body,
+      h2,
+      p,
+      label,
+      input {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-/* Light and dark mode styling */
-.light-mode {
-    background-color: #ffffff;
-    color: #333;
-}
+      /* General body styling */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        transition: background-color 0.3s, color 0.3s;
+      }
 
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
+      /* Light and dark mode styling */
+      .light-mode {
+        background-color: #ffffff;
+        color: #333;
+      }
 
-/* Switch styling */
-.switch {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
+      .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+      }
 
-.slider {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-}
+      /* Switch styling */
+      .switch {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
 
-.slider input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+      .slider {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
 
-.toggle {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 24px;
-}
+      .slider input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
 
-.toggle:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-}
+      .toggle {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
 
-input:checked + .toggle {
-    background-color: #2196F3;
-}
+      .toggle:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+      }
 
-input:checked + .toggle:before {
-    transform: translateX(26px);
-}
+      input:checked + .toggle {
+        background-color: #2196f3;
+      }
 
-/* Signup container styling */
-.signup-container {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
+      input:checked + .toggle:before {
+        transform: translateX(26px);
+      }
 
-/* Logo styling */
-.logo {
-    width: 120px; /* Adjust size as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Space below the logo */
-}
+      /* Signup container styling */
+      .signup-container {
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
 
-/* Form styling */
-.signup-container h2 {
-    margin-bottom: 20px;
-    color: #333;
-}
+      /* Logo styling */
+      .logo {
+        width: 120px; /* Adjust size as needed */
+        height: auto; /* Maintain aspect ratio */
+        margin-bottom: 20px; /* Space below the logo */
+      }
 
-.signup-container p {
-    margin-bottom: 20px;
-    color: #666;
-}
+      /* Form styling */
+      .signup-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
 
-.signup-container a {
-    color: #2196F3;
-    text-decoration: none;
-}
+      .signup-container p {
+        margin-bottom: 20px;
+        color: #666;
+      }
 
-.signup-container a:hover {
-    text-decoration: underline;
-}
+      .signup-container a {
+        color: #2196f3;
+        text-decoration: none;
+      }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+      .signup-container a:hover {
+        text-decoration: underline;
+      }
 
-label {
-    margin-bottom: 5px;
-    text-align: left;
-    color: #666;
-}
+      form {
+        display: flex;
+        flex-direction: column;
+      }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
+      label {
+        margin-bottom: 5px;
+        text-align: left;
+        color: #666;
+      }
 
-input[type="submit"] {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #2196F3;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
 
-input[type="submit"]:hover {
-    background-color: #0b7dda;
-}
+      input[type="submit"] {
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #2196f3;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
 
-</style>
-
-</head>
-<body >
-    
+      input[type="submit"]:hover {
+        background-color: #0b7dda;
+      }
+    </style>
+  </head>
+  <body>
     <!--Navigation Bar-->
 
     <div class="signup-container dark-mode">
-        <img class="logo" src="images/logo.jpg" alt="Logo">
-        <h2>Create new Account</h2>
-        <form action="verify.php" method="POST">
-            <p>Already Registered?<a href="signin.html">Login</a></p>
-             
-            <label for="first_name">First Name</label>
-            <input type="text" name="firstname" placeholder="First Name" id="firstname" required>
+      <img class="logo" src="images/logo.jpg" alt="Logo" />
+      <h2>Create new Account</h2>
+      <form
+        action="verify.php"
+        method="POST"
+        onsubmit="return validationForm()"
+      >
+        <p>Already Registered?<a href="signin.html">Login</a></p>
 
-            <label for="last_name">Last Name</label>
-            <input type="text" name="lastname" placeholder="Last Name" id="lastname" required>
+        <label for="first_name">First Name</label>
+        <input
+          type="text"
+          name="firstname"
+          placeholder="First Name"
+          id="firstname"
+          required
+        />
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" placeholder="Email" id="email" required>
+        <label for="last_name">Last Name</label>
+        <input
+          type="text"
+          name="lastname"
+          placeholder="Last Name"
+          id="lastname"
+          required
+        />
 
-            <label for="password">Password:</label>
-            <input type="password" name="password" placeholder="Password" id="password" required>
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          id="email"
+          required
+        />
 
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password" required>
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          id="password"
+          required
+        />
 
-            <label for="address">Address:</label>
-            <input type="text" name="address" placeholder="Address" id="address" required>
+        <label for="confirm_password">Confirm Password:</label>
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          id="confirm_password"
+          required
+        />
 
-            <input type="submit" value="Create Account">
-        </form>
+        <label for="address">Address:</label>
+        <input
+          type="text"
+          name="address"
+          placeholder="Address"
+          id="address"
+          required
+        />
+        <div>
+          <input type="checkbox" id="agree" name="agree" />
+          <label for="agree"
+            >I agree to the
+            <a href="terms.html" target="_blank">Terms and Conditions</a></label
+          >
+        </div>
+
+        <input
+          type="submit"
+          value="Create Account"
+          onclick="validationForm();"
+        />
+      </form>
     </div>
     <script>
-        // Function to toggle between light and dark mode
-        function toggleMode() {
-            const body = document.body;
-            const signupContainer = document.querySelector('.signup-container');
-            const isDarkMode = body.classList.contains('dark-mode');
-            body.classList.toggle('dark-mode', !isDarkMode);
-            body.classList.toggle('light-mode', isDarkMode);
-            signupContainer.classList.toggle('dark-mode', !isDarkMode);
-            signupContainer.classList.toggle('light-mode', isDarkMode);
-            localStorage.setItem('mode', isDarkMode ? 'light' : 'dark');
+      function validationForm() {
+        const checkbox = document.getElementById("agree");
+
+        if (!checkbox.checked) {
+          alert(
+            "You must agree to the Terms and Conditions to proceed with registration."
+          );
+          return false;
         }
 
-        // Check local storage for mode preference
-        document.addEventListener('DOMContentLoaded', () => {
-            const mode = localStorage.getItem('mode') || 'dark';
-            const modeToggle = document.getElementById('modeToggle');
-            if (mode === 'light') {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                document.querySelector('.signup-container').classList.remove('dark-mode');
-                document.querySelector('.signup-container').classList.add('light-mode');
-                modeToggle.checked = true;
-            }
-            modeToggle.addEventListener('change', toggleMode);
-        });
+        return true;
+      }
+      // Function to toggle between light and dark mode
+      function toggleMode() {
+        const body = document.body;
+        const signupContainer = document.querySelector(".signup-container");
+        const isDarkMode = body.classList.contains("dark-mode");
+        body.classList.toggle("dark-mode", !isDarkMode);
+        body.classList.toggle("light-mode", isDarkMode);
+        signupContainer.classList.toggle("dark-mode", !isDarkMode);
+        signupContainer.classList.toggle("light-mode", isDarkMode);
+        localStorage.setItem("mode", isDarkMode ? "light" : "dark");
+      }
+
+      // Check local storage for mode preference
+      document.addEventListener("DOMContentLoaded", () => {
+        const mode = localStorage.getItem("mode") || "dark";
+        const modeToggle = document.getElementById("modeToggle");
+        if (mode === "light") {
+          document.body.classList.remove("dark-mode");
+          document.body.classList.add("light-mode");
+          document
+            .querySelector(".signup-container")
+            .classList.remove("dark-mode");
+          document
+            .querySelector(".signup-container")
+            .classList.add("light-mode");
+          modeToggle.checked = true;
+        }
+        modeToggle.addEventListener("change", toggleMode);
+      });
     </script>
-</body>
+  </body>
 </html>
