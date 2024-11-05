@@ -78,13 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'dontdropassist@gmail.com';
-                    $mail->Password   = 'zzqz kqfl ijry wjec';
+                    $mail->Username   = 'guidancesrcwebsite@gmail.com';
+                    $mail->Password   = 'vcnl jnvd zpgd nnop';
                     $mail->SMTPSecure = 'ssl';
                     $mail->Port       = 465;
 
                     // Recipients and email content
-                    $mail->setFrom($email, 'JayStore');
+                    $mail->setFrom($email, 'guidancesrcwebsite');
                     $mail->addAddress($email);
                     $mail->isHTML(true);
                     $mail->Subject = 'Reset Password';
