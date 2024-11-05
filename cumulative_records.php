@@ -84,6 +84,7 @@ mysqli_close($con);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,55 +98,68 @@ mysqli_close($con);
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #211ACA;
             color: white;
             padding: 15px;
             text-align: center;
         }
+
         .container {
             width: 80%;
             margin: 20px auto;
             padding: 20px;
             background: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+
         .container h1 {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .table-container {
             overflow-x: auto;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #211ACA;
             color: white;
         }
+
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
         tr:hover {
             background-color: #ddd;
         }
+
         .filter-form {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
         }
+
         select {
             padding: 5px;
             margin-right: 10px;
         }
+
         .logout-button {
             background-color: #f44336;
             color: white;
@@ -161,40 +175,41 @@ mysqli_close($con);
         }
     </style>
 </head>
+
 <body>
     <header>
-    <a href="admin_page.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
-    <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer circle -->
-        <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2"/>
-        <!-- Inner arrow shape -->
-        <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</a>
+        <a href="admin_page.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
+            <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer circle -->
+                <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2" />
+                <!-- Inner arrow shape -->
+                <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
         <h1>Cumulative Dashboard</h1>
-      
+
     </header>
     <div class="container">
         <h1>Form Responses</h1>
 
-           <!-- Button to View Chart -->
-    <div style="text-align: center; margin-bottom: 20px;">
-        <a href="view_chart.php" class="button" style="padding: 10px 20px; background-color: #211ACA; color: white; text-decoration: none; border-radius: 5px;">View Course Chart</a>
-    </div>
+        <!-- Button to View Chart -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="view_chart.php" class="button" style="padding: 10px 20px; background-color: #211ACA; color: white; text-decoration: none; border-radius: 5px;">View Dashboard</a>
+        </div>
 
         <!-- Filter Form -->
         <form method="GET" class="filter-form">
-        <div>
-    <label for="course_section">Filter by Course & Section:</label>
-    <select name="course_section" id="course_section">
-        <option value="All" <?php if ($filter_course_section == 'All') echo 'selected'; ?>>Filter All</option>
-        <?php foreach ($course_sections as $section): ?>
-            <option value="<?php echo htmlspecialchars($section); ?>" <?php if ($filter_course_section == $section) echo 'selected'; ?>>
-                <?php echo htmlspecialchars($section); ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
+            <div>
+                <label for="course_section">Filter by Course & Section:</label>
+                <select name="course_section" id="course_section">
+                    <option value="All" <?php if ($filter_course_section == 'All') echo 'selected'; ?>>Filter All</option>
+                    <?php foreach ($course_sections as $section): ?>
+                        <option value="<?php echo htmlspecialchars($section); ?>" <?php if ($filter_course_section == $section) echo 'selected'; ?>>
+                            <?php echo htmlspecialchars($section); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
             <div>
                 <label for="birth_order">Filter by Birth Order:</label>
@@ -264,7 +279,7 @@ mysqli_close($con);
             <table>
                 <thead>
                     <tr>
-                        
+
                         <th>Email</th>
                         <th>Date&Time</th>
                         <th>Student Number</th>
@@ -294,21 +309,22 @@ mysqli_close($con);
                             <td><?php echo htmlspecialchars($row['marriage_status']); ?></td>
                             <!-- Add other columns as needed -->
                             <td>
-    <a href="view_response.php?id=<?php echo htmlspecialchars($row['id']); ?>">View</a> | 
-    <a href="edit_user.php?id=<?php echo htmlspecialchars($row['id']); ?>">Edit</a> | 
-    <a href="delete_user.php?id=<?php echo htmlspecialchars($row['id']); ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
-</td>
+                                <a href="view_response.php?id=<?php echo htmlspecialchars($row['id']); ?>">View</a> |
+                                <a href="edit_user.php?id=<?php echo htmlspecialchars($row['id']); ?>">Edit</a> |
+                                <a href="delete_user.php?id=<?php echo htmlspecialchars($row['id']); ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                            </td>
 
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
-                
+
             </table>
             <div style="text-align: center; margin-top: 20px;">
-    <a href="cumprint.php?course_section=<?php echo urlencode($filter_course_section); ?>&birth_order=<?php echo urlencode($filter_birth_order); ?>&monthly_income=<?php echo urlencode($filter_monthly_income); ?>&religion=<?php echo urlencode($filter_religion); ?>&number_of_siblings=<?php echo urlencode($filter_number_of_siblings); ?>&marriage_status=<?php echo urlencode($filter_marriage_status); ?>" class="button" style="padding: 10px 20px; background-color: #211ACA; color: white; text-decoration: none; border-radius: 5px;">Print PDF</a>
-</div>
+                <a href="cumprint.php?course_section=<?php echo urlencode($filter_course_section); ?>&birth_order=<?php echo urlencode($filter_birth_order); ?>&monthly_income=<?php echo urlencode($filter_monthly_income); ?>&religion=<?php echo urlencode($filter_religion); ?>&number_of_siblings=<?php echo urlencode($filter_number_of_siblings); ?>&marriage_status=<?php echo urlencode($filter_marriage_status); ?>" class="button" style="padding: 10px 20px; background-color: #211ACA; color: white; text-decoration: none; border-radius: 5px;">Print PDF</a>
+            </div>
 
         </div>
     </div>
 </body>
+
 </html>
