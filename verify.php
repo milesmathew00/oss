@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'dontdropassist@gmail.com';
-                $mail->Password   = 'zzqz kqfl ijry wjec';
+                $mail->Username   = 'guidancesrcwebsite@gmail.com';
+                $mail->Password   = 'vcnl jnvd zpgd nnop';
                 $mail->SMTPSecure = 'ssl';
                 $mail->Port       = 465;
 
@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->setFrom($email, 'DontDrop');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
-                $mail->Subject = 'Dont Drop ACCOUNT REGISTRATION';
-                $mail->Body    = "Thank you for choosing DONTDROP!. To verify your account, 
+                $mail->Subject = 'Guidance SRC ACCOUNT REGISTRATION';
+                $mail->Body    = "This gmail will be registered to guidancesrcwebsite!. To verify your account, 
                 please input your confirmation code: <b>$confirmationCode</b>";
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
