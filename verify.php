@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Port       = 465;
 
                 // Recipients and email content
-                $mail->setFrom($email, 'DontDrop');
+                $mail->setFrom($email, 'guidancesrcwebsite');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = 'Guidance SRC ACCOUNT REGISTRATION';
