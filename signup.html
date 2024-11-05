@@ -249,11 +249,19 @@
           required
         />
         <div>
-          <input type="checkbox" id="agree" name="agree" />
-          <label for="agree"
-            >I agree to the
-            <a href="terms.html" target="_blank">Terms and Conditions</a></label
-          >
+          <input type="checkbox" id="agreeTerms" name="agreeTerms" />
+          <label for="agreeTerms">
+            I agree to the
+            <a href="terms.html" target="_blank">Terms and Conditions</a>
+          </label>
+        </div>
+
+        <div>
+          <input type="checkbox" id="agreePrivacy" name="agreePrivacy" />
+          <label for="agreePrivacy">
+            I agree to the
+            <a href="privacypolicy.html" target="_blank">Privacy Policy</a>
+          </label>
         </div>
 
         <input
@@ -265,16 +273,24 @@
     </div>
     <script>
       function validationForm() {
-        const checkbox = document.getElementById("agree");
+        const termsCheckbox = document.getElementById("agreeTerms");
+        const privacyCheckbox = document.getElementById("agreePrivacy");
 
-        if (!checkbox.checked) {
+        if (!termsCheckbox.checked) {
           alert(
             "You must agree to the Terms and Conditions to proceed with registration."
           );
-          return false;
+          return false; // Prevent form submission
         }
 
-        return true;
+        if (!privacyCheckbox.checked) {
+          alert(
+            "You must agree to the Privacy Policy to proceed with registration."
+          );
+          return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission if both are checked
       }
       // Function to toggle between light and dark mode
       function toggleMode() {
