@@ -9,9 +9,16 @@ $password = "";
 $dbname = "miles";
 $port = 3306;
 
+
+// local
+
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "miles";
+
 $con = new mysqli($servername, $username, $password, $dbname);
 
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
-?>
