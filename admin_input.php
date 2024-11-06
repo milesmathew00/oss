@@ -9,7 +9,7 @@ include 'db.php';
 
 // Handle form submission
 if (isset($_POST['submit'])) {
-    $user_id = $_POST['user_id']; // Get selected user ID
+    $user_id = $_POST['user_id'];
     $name_of_test = $_POST['name_of_test'];
     $date = $_POST['date']; // Get the date
     $dimension_aspect = $_POST['dimension_aspect'];
@@ -17,7 +17,28 @@ if (isset($_POST['submit'])) {
     $percentile = $_POST['percentile'];
     $description = $_POST['description'];
 
-    // Insert data into the database
+    $dsn = "mysql:dbname=your_database_name;host=your_database_host";
+    $username = "your_database_username";
+    $password = "your_database_password";
+
+    try {
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $stmt = $pdo->prepare("SELECT u.* FROM `user` u 
+                           INNER JOIN `user_data` ud ON u.email = ud.email 
+                           WHERE ud.id = :user_id");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+        } else {
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
     $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
             VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
 
