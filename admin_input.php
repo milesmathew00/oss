@@ -32,6 +32,7 @@ if (isset($_POST['submit'])) {
                     $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
                         VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
                     if (mysqli_query($con, $sql)) {
+                        echo "Test data inserted successfully\n";  
                     } else {
                         echo "Error inserting test data: " . mysqli_error($con) . "<br>";  // Log error if insertion fails
                     }
