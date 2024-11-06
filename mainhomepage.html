@@ -79,6 +79,19 @@
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
+      /* High-resolution screens */
+      @media (min-width: 1200px) {
+        body {
+          background-image: url("images/gate.jpg"); /* Higher resolution */
+        }
+      }
+
+      /* Lower resolution for smaller screens */
+      @media (max-width: 1200px) {
+        body {
+          background-image: url("images/gate.jpg");
+        }
+      }
     </style>
   </head>
   <body>

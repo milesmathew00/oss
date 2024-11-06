@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,40 +15,60 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-image: url('images/MTG.png'); /* Add your background image here */
-            background-size: cover; /* Ensures the image covers the whole body */
-            background-position: center; /* Centers the image */
-            background-repeat: no-repeat; /* Prevents image repetition */
-            height: 100vh; /* Sets the height to 100% of the viewport height */
+            background-image: url('images/MTG.png');
+            /* Add your background image here */
+            background-size: cover;
+            /* Ensures the image covers the whole body */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents image repetition */
+            height: 100vh;
+            /* Sets the height to 100% of the viewport height */
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for header */
-            padding: 15px 30px; /* Increase padding for more space */
-            width: 95%; /* Ensures header spans the entire width of the viewport */
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Slightly transparent white for header */
+            padding: 15px 30px;
+            /* Increase padding for more space */
+            width: 95%;
+            /* Ensures header spans the entire width of the viewport */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
-            width: 100px; /* Adjust size as necessary */
-            height: 100px; /* Make height equal to width for a perfect circle */
-            margin: 5px; /* Space around logos */
-            border-radius: 50%; /* This should be border-radius, not radius */
-            overflow: hidden; /* Ensures that any overflow is hidden */
-            display: flex; /* Center content within the circle */
-            justify-content: center; /* Center content horizontally */
-            align-items: center; /* Center content vertically */
-            background-color: #f7f7f7; /* Optional: background color */
+            width: 100px;
+            /* Adjust size as necessary */
+            height: 100px;
+            /* Make height equal to width for a perfect circle */
+            margin: 5px;
+            /* Space around logos */
+            border-radius: 50%;
+            /* This should be border-radius, not radius */
+            overflow: hidden;
+            /* Ensures that any overflow is hidden */
+            display: flex;
+            /* Center content within the circle */
+            justify-content: center;
+            /* Center content horizontally */
+            align-items: center;
+            /* Center content vertically */
+            background-color: #f7f7f7;
+            /* Optional: background color */
         }
 
         /* Optional: If you want to include an image inside the circle */
         .logo img {
-            width: 100%; /* Ensure image fills the circle */
-            height: auto; /* Maintain aspect ratio */
-            object-fit: cover; /* Cover the circle without stretching */
+            width: 100%;
+            /* Ensure image fills the circle */
+            height: auto;
+            /* Maintain aspect ratio */
+            object-fit: cover;
+            /* Cover the circle without stretching */
         }
 
         .logout-button {
@@ -104,13 +125,15 @@
         }
 
         .action-buttons {
-            display: none; /* Initially hidden */
+            display: none;
+            /* Initially hidden */
             margin-top: 20px;
         }
 
         .action-button {
             padding: 10px 15px;
-            background-color: #007BFF; /* Bootstrap primary color */
+            background-color: #007BFF;
+            /* Bootstrap primary color */
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -119,7 +142,8 @@
         }
 
         .action-button:hover {
-            background-color: #0056b3; /* Darker shade */
+            background-color: #0056b3;
+            /* Darker shade */
         }
 
         /* Dropdown Styles */
@@ -133,9 +157,10 @@
             position: absolute;
             background-color: white;
             min-width: 160px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            right: 0; /* Align to the right */
+            right: 0;
+            /* Align to the right */
         }
 
         .dropdown-content a {
@@ -153,6 +178,7 @@
             display: block;
         }
 
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -169,12 +195,14 @@
                 width: 100%;
             }
         }
+        
     </style>
 </head>
+
 <body>
     <header>
         <div>
-            <img src="images/logo.jpg" alt="Your Logo" class="logo">
+            <img src="images/main.png" alt="Your Logo" class="logo">
         </div>
         <div class="dropdown">
             <h1 onclick="toggleDropdown()">Welcome to the Admin Dashboard</h1>
@@ -185,7 +213,7 @@
             </div>
         </div>
         <div>
-            <img src="images/bsu.jpg" alt="Your Logo" class="logo">
+            <img src="images/logo.jpg" alt="Your Logo" class="logo">
         </div>
     </header>
 
@@ -232,4 +260,5 @@
         }
     </script>
 </body>
+
 </html>
