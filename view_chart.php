@@ -160,7 +160,7 @@ mysqli_close($con);
 </head>
 
 <body>
-    <a href="homepage.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
+    <a href="cumulative_records.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
         <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Outer circle -->
             <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2" />
