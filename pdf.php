@@ -29,7 +29,8 @@ if (isset($_GET['id'])) {
             <style>
                 body {
                     font-family: Arial, sans-serif;
-                    margin: 20px;
+                    margin: 0px;
+                    padding: 0px;
                     font-size: 10px; /* Reduce font size */
                     background-color: #f9f9f9;
                 }
@@ -39,9 +40,9 @@ if (isset($_GET['id'])) {
                 .container {
                     max-width: 800px;
                     margin: auto;
-                    padding: 20px;
+                    padding: 10px;
                     background: white;
-                    border-radius: 8px;
+                    border-radius: 2px;
                     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                     
 
@@ -50,13 +51,20 @@ if (isset($_GET['id'])) {
                 .data-grid {    
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
-                    gap: 10px;
+                    gap: 5px;
                 }
                 .data-item {
-                    padding: 8px;
+                    padding: 4px;
                     border: 1px solid #ddd;
                     border-radius: 4px;
                 }
+
+//                 .data-item {
+//     padding: 0;  /* Removes padding */
+//     border: none;  /* Removes the border */
+//     border-radius: 0;  /* Optional: Removes the border radius */
+// }
+
                  img.profile-picture {
     width: 80px; /* Decreased size */
     height: auto; 
@@ -73,10 +81,10 @@ if (isset($_GET['id'])) {
                 table {
                     width: 100%;
                     border-collapse: collapse;
-                    margin: 20px 0;
+                    margin: 10px 0;
                 }
                 th, td {
-                    padding: 10px;
+                    padding: 5px;
                     border: 1px solid #ddd;
                     text-align: left;
                 }
@@ -92,7 +100,7 @@ if (isset($_GET['id'])) {
         border: 2px solid black; /* New border for printed pages */
         border-radius: 8px; /* Keep rounded corners */
         page-break-after: always; /* Force a page break after each container */
-        padding: 20px; /* Keep padding inside the container */
+        padding: 5px; /* Keep padding inside the container */
     }
     button {
         display: none; /* Hide buttons during print */
