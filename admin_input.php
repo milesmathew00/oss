@@ -16,7 +16,6 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
 
     $query = "SELECT email FROM user_data WHERE id = '$user_id'";
-    echo "Executing query: $query<br>";  // Debugging log for the first query
     $result = mysqli_query($con, $query);
 
     if ($result) {
