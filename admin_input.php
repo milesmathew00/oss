@@ -1,12 +1,13 @@
 <?php
-session_start(); // Start session to access user data
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start();
 
-// Database connection
 include 'db.php';
 
-// Handle form submission
 if (isset($_POST['submit'])) {
-    $user_id = $_POST['user_id']; // Get selected user ID
+    $user_id = $_POST['user_id'];
     $name_of_test = $_POST['name_of_test'];
     $date = $_POST['date']; // Get the date
     $dimension_aspect = $_POST['dimension_aspect'];
@@ -14,16 +15,41 @@ if (isset($_POST['submit'])) {
     $percentile = $_POST['percentile'];
     $description = $_POST['description'];
 
-    // Insert data into the database
-    $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
-            VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
+    $query = "SELECT email FROM user_data WHERE id = '$user_id'";
+    $result = mysqli_query($con, $query);
 
-    if (mysqli_query($con, $sql)) {
-        echo "Test data inserted successfully";
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+
+        if ($row) {
+            $email = $row['email'];
+            $query = "SELECT * FROM user WHERE email = '$email'";
+            $result = mysqli_query($con, $query);
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+                if ($row) {
+                    $user_id = $row['user_id'];
+                    $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
+                        VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
+                    if (mysqli_query($con, $sql)) {
+                        echo "Test data inserted successfully\n";  
+                    } else {
+                        echo "Error inserting test data: " . mysqli_error($con) . "<br>";  // Log error if insertion fails
+                    }
+                } else {
+                    echo "Error: User not found for email: $email<br>";  // Log if no user is found with the email
+                }
+            } else {
+                echo "Error executing query for email: $email. " . mysqli_error($con) . "<br>";  // Log error for second query
+            }
+        } else {
+            echo "Error: No email found for user_id: $user_id<br>";  // Log if no email is found for the given user_id
+        }
     } else {
-        echo "Error: " . mysqli_error($con);
+        echo "Error executing query for user_id: $user_id. " . mysqli_error($con) . "<br>";  // Log error for the first query
     }
 }
+
 
 // Fetch distinct course sections
 $course_query = "SELECT DISTINCT course_section FROM user_data";
