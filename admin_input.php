@@ -18,16 +18,21 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
 
     // Insert data into the database
-    $query = "SELECT email FROM user WHERE user_id = '$user_id'";
+    $query = "SELECT email FROM user_data WHERE user_id = '$user_id'";
     $result = mysqli_query($con, $query);
 
     if ($result) {
         // Check if the user exists
         $row = mysqli_fetch_assoc($result);
         if ($row) {
-            $email = $row['email']; // Get the email from the user table
+            $email = $row['email'];
 
-            // Step 2: Insert the data into the testing_service table
+            $query = "SELECT * FROM user WHERE email = '$email'";
+            $result = mysqli_query($con, $query);
+            $row = mysqli_fetch_assoc($result);
+            $user_id = $row['user_id'];
+
+
             $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
                 VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
 
