@@ -20,13 +20,13 @@ if (isset($_POST['submit'])) {
     // Insert data into the database
     $query = "SELECT email FROM user_data WHERE user_id = '$user_id'";
     $result = mysqli_query($con, $query);
-
+    echo   $query;
     if ($result) {
         // Check if the user exists
         $row = mysqli_fetch_assoc($result);
         if ($row) {
             $email = $row['email'];
-            echo  $email ;
+
             $query = "SELECT * FROM user WHERE email = '$email'";
             $result = mysqli_query($con, $query);
             $row = mysqli_fetch_assoc($result);
