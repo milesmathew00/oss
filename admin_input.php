@@ -17,33 +17,28 @@ if (isset($_POST['submit'])) {
     $percentile = $_POST['percentile'];
     $description = $_POST['description'];
 
-    $dsn = "mysql:dbname=your_database_name;host=your_database_host";
-    $username = "your_database_username";
-    $password = "your_database_password";
+    // Insert data into the database
+    $query = "SELECT email FROM user WHERE user_id = '$user_id'";
+    $result = mysqli_query($con, $query);
 
-    try {
-        $pdo = new PDO($dsn, $username, $password);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if ($result) {
+        // Check if the user exists
+        $row = mysqli_fetch_assoc($result);
+        if ($row) {
+            $email = $row['email']; // Get the email from the user table
 
-        $stmt = $pdo->prepare("SELECT u.* FROM `user` u 
-                           INNER JOIN `user_data` ud ON u.email = ud.email 
-                           WHERE ud.id = :user_id");
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->execute();
+            // Step 2: Insert the data into the testing_service table
+            $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
+                VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
+            if (mysqli_query($con, $sql)) {
+                echo "Test data inserted successfully";
+            } else {
+                echo "Error: " . mysqli_error($con);
+            }
         } else {
+            echo "Error: User not found for the provided user_id.";
         }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-
-    $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
-            VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
-
-    if (mysqli_query($con, $sql)) {
-        echo "Test data inserted successfully";
     } else {
         echo "Error: " . mysqli_error($con);
     }
