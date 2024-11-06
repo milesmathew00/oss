@@ -6,10 +6,10 @@ $dbname = "u297599468_guidancesrc_db";
 
 // local
 
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "miles";
+//  $servername = "localhost";
+//  $username = "root";
+//  $password = "";
+//  $dbname = "miles";
 
 $con = new mysqli($servername, $username, $password, $dbname);
 
