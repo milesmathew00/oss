@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
                 echo "Error: " . mysqli_error($con);
             }
         } else {
-            echo "Error: User not found for the provided user_id.";
+            echo " $query Error: User not found for the provided user_id.";
         }
     } else {
         echo "Error: " . mysqli_error($con);
