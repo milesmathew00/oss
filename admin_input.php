@@ -21,13 +21,11 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
             VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
 
-    echo $sql;
-    exit;
-    // if (mysqli_query($con, $sql)) {
-    //     echo "Test data inserted successfully";
-    // } else {
-    //     echo "Error: " . mysqli_error($con);
-    // }
+    if (mysqli_query($con, $sql)) {
+        echo "Test data inserted successfully";
+    } else {
+        echo "Error: " . mysqli_error($con);
+    }
 }
 
 // Fetch distinct course sections
