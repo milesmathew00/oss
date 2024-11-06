@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
         $row = mysqli_fetch_assoc($result);
         if ($row) {
             $email = $row['email'];
-
+            echo  $email ;
             $query = "SELECT * FROM user WHERE email = '$email'";
             $result = mysqli_query($con, $query);
             $row = mysqli_fetch_assoc($result);
