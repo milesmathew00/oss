@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Link to your CSS file -->
+    <style>
+      /* Basic styling for the page */
+      body {
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-image: url("images/RCS.png"); /* Add your background image here */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #f4f4f9; /* Fallback color */
+      }
+
+      .navbar {
+        background-color: #333;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .navbar a:hover {
+        color: #ff6347;
+      }
+
+      /* Button container for login/signup */
+      .auth-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .auth-button {
+        padding: 8px 16px;
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .auth-button:hover {
+        background-color: #ff6347;
+      }
+
+      .container {
+        padding: 20px;
+        max-width: 900px;
+        margin: auto;
+        text-align: center;
+      }
+
+      h1.welcome {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 2rem;
+        color: beige;
+      }
+
+      .section {
+        padding: 20px;
+        margin: 20px 0;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <div class="navbar">
+      <div class="navbar-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <!-- Login/Sign Up buttons -->
+      <div class="auth-buttons">
+        <a href="signin.html" class="auth-button">Log In</a>
+        <a href="signup.html" class="auth-button">Sign Up</a>
+      </div>
+    </div>
+
+    <!-- Welcome message -->
+    <h1 class="welcome">
+      Welcome to Bulsu SRC Guidance and Counseling Services Center Portal
+    </h1>
+
+    <!-- Main content -->
+    <div class="container">
+      <!-- Content sections can go here -->
+    </div>
+  </body>
+</html>

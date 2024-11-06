@@ -1,2 +1,2 @@
 <?php 
-header("Location: signin.html"); 
+header("Location: mainhomepage.html"); 
