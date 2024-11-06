@@ -22,11 +22,12 @@ if (isset($_POST['submit'])) {
             VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
 
     echo $sql;
-    if (mysqli_query($con, $sql)) {
-        echo "Test data inserted successfully";
-    } else {
-        echo "Error: " . mysqli_error($con);
-    }
+    exit;
+    // if (mysqli_query($con, $sql)) {
+    //     echo "Test data inserted successfully";
+    // } else {
+    //     echo "Error: " . mysqli_error($con);
+    // }
 }
 
 // Fetch distinct course sections
