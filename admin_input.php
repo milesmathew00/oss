@@ -20,32 +20,19 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($con, $query);
 
     if ($result) {
-        echo "Query executed successfully: $query<br>";  // Log when query execution is successful
         $row = mysqli_fetch_assoc($result);
 
         if ($row) {
             $email = $row['email'];
-            echo "Email retrieved: $email<br>";  // Log email retrieved from user_data table
-
             $query = "SELECT * FROM user WHERE email = '$email'";
-            echo "Executing query: $query<br>";  // Log the second query
             $result = mysqli_query($con, $query);
-
             if ($result) {
-                echo "Query executed successfully: $query<br>";  // Log when second query is successful
                 $row = mysqli_fetch_assoc($result);
-
                 if ($row) {
                     $user_id = $row['user_id'];
-                    echo "User ID retrieved: $user_id<br>";  // Log the user_id retrieved from user table
-
-                    // Prepare the insert query for testing_service
                     $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
                         VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
-                    echo "Executing insert query: $sql<br>";  // Log the insert query
-
                     if (mysqli_query($con, $sql)) {
-                        echo "Test data inserted successfully<br>";  // Log success message
                     } else {
                         echo "Error inserting test data: " . mysqli_error($con) . "<br>";  // Log error if insertion fails
                     }
