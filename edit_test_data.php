@@ -120,7 +120,7 @@ $records_result = mysqli_query($con, $records_query);
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Student Name</th>
                 <th>Name of Test</th>
                 <th>Date</th>
@@ -139,7 +139,7 @@ $records_result = mysqli_query($con, $records_query);
                     $record2 = mysqli_fetch_assoc($records_result2);
                     $fullname = htmlspecialchars($record2['first_name'] . " " . $record2['last_name']); ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($record['id']); ?></td>
+                        <!-- <td><?php echo htmlspecialchars($record['id']); ?></td> -->
                         <td><?= $fullname ?></td>
                         <td class="editable" onclick="makeEditable(this, 'name_of_test', <?php echo $record['id']; ?>)"><?php echo htmlspecialchars($record['name_of_test']); ?></td>
                         <td class="editable" onclick="makeEditable(this, 'date', <?php echo $record['id']; ?>)"><?php echo htmlspecialchars($record['date']); ?></td>

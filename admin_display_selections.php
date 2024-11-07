@@ -136,7 +136,7 @@
 <table>
     <thead>
         <tr>
-            <th>User ID</th>
+            <!-- <th>User ID</th> -->
             <th>First Name</th>
             <th>Last Name</th>
             <th>Course & Section</th>
@@ -148,7 +148,7 @@
         <?php
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . htmlspecialchars($row['user_id']) . '</td>';
+                // echo '<td>' . htmlspecialchars($row['user_id']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['first_name']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['last_name']) . '</td>';
                 echo '<td>' . htmlspecialchars($row['course_section']) . '</td>';
