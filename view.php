@@ -14,13 +14,15 @@ $query = "SELECT * FROM user_data WHERE user_id = $userId";
 $result = mysqli_query($con, $query);
 $userData = mysqli_fetch_assoc($result);
 
-// Check if data exists
 if (!$userData) {
     echo "No data found.";
     exit();
 }
 
 mysqli_close($con);
+
+// Define fields to hide
+$hiddenFields = ['id', 'user_id']; // Fields you want to hide
 ?>
 
 <!DOCTYPE html>
@@ -41,33 +43,47 @@ mysqli_close($con);
 
         h1 {
             color: black;
+            text-align: center;
         }
 
-        .data-container {
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            /* 5 tables per row */
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .data-table-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .data-item {
-            margin-bottom: 10px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        button {
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
             background-color: #2219A8;
-            /* Green button */
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            color: white;
         }
 
-        button:hover {
-            background-color: #89C8FD;
-            /* Darker green on hover */
+        .back-btn {
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -80,12 +96,44 @@ mysqli_close($con);
             <!-- Inner arrow shape -->
             <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-    </a></br>
-    <div class="data-container">
-        <h1>Submitted Data</h1>
-        <?php foreach ($userData as $key => $value): ?>
-            <div class="data-item"><strong><?php echo htmlspecialchars($key); ?>:</strong> <?php echo htmlspecialchars($value); ?></div>
-        <?php endforeach; ?>
+    </a>
+
+    <h1>Submitted Data</h1>
+
+    <div class="grid-container">
+        <?php
+        $count = 0;
+        $tableCount = 0;
+
+        // Begin a new table every 7 items, up to 10 tables
+        echo '<div class="data-table-container"><table><tr><th>Field</th><th>Value</th></tr>';
+
+        foreach ($userData as $key => $value) {
+            if (in_array($key, $hiddenFields)) continue; // Skip hidden fields
+
+            // Close the current table and open a new one every 7 items or when a new table is needed
+            if ($count > 0 && $count % 7 == 0) {
+                echo '</table></div>';
+                $tableCount++;
+
+                // Stop creating tables after 10 tables
+                if ($tableCount >= 10) break;
+
+                // Open a new table container
+                echo '<div class="data-table-container"><table><tr><th>Field</th><th>Value</th></tr>';
+            }
+
+            // Display each data row
+            echo '<tr>';
+            echo '<td>' . ucfirst(str_replace('_', ' ', htmlspecialchars($key))) . '</td>';
+            echo '<td>' . htmlspecialchars($value) . '</td>';
+            echo '</tr>';
+
+            $count++;
+        }
+
+        echo '</table></div>'; // Close the last table
+        ?>
     </div>
 </body>
 

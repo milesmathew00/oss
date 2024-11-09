@@ -1,151 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* Basic styling for the page */
-    body {
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-image: url("images/RCS.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-color: #f4f4f9;
-    }
-
-    /* Header Section */
-    header {
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    /* Centered Log In / Sign Up buttons */
-    .auth-buttons {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .auth-button {
-      padding: 8px 16px;
-      background-color: #555;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-
-    .auth-button:hover {
-      background-color: #ff6347;
-    }
-
-    /* Welcome Section */
-    .welcome-section {
-      text-align: center;
-      color: beige;
-      margin: 40px 0;
-    }
-
-    .welcome-section h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    .welcome-section p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.5;
-    }
-
-    /* About and Services Sections */
-    .section {
-      padding: 40px 20px;
-      margin: 20px auto;
-      background-color: white;
-      max-width: 900px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .section h2 {
-      color: #333;
-      margin-bottom: 15px;
-    }
-
-    .section p {
-      color: #666;
-      line-height: 1.6;
-    }
-
-    /* Responsive Design */
-    @media (min-width: 1200px) {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Basic styling for the page */
+      html,
       body {
-        background-image: url("images/gate.jpg");
+        height: 100%;
+        margin: 0;
       }
-    }
-    .welcome-section {
-    background-color: rgba(0, 0, 0, 0.6); /* Black with 60% opacity for clarity */
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
 
-.welcome-section h1, .welcome-section p {
-    color: white; /* White text for high contrast */
-}
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("images/gate.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #f4f4f9;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
 
-  </style>
-</head>
-<body>
+      /* Header Section */
+      header {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
 
-  <!-- Header with Auth Buttons -->
-  <header>
-    <div class="auth-buttons">
-      <a href="signin.html" class="auth-button">Log In</a>
-      <a href="signup.html" class="auth-button">Sign Up</a>
+      /* Centered Log In / Sign Up buttons */
+      .auth-buttons {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .auth-button {
+        padding: 8px 16px;
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .auth-button:hover {
+        background-color: #ff6347;
+      }
+
+      /* Grid Layout Styling */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; /* Three equal-width columns, left to right */
+        gap: 30px; /* Space between grid items */
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-grow: 1; /* Ensures the content area takes up available space */
+      }
+
+      .section {
+        padding: 30px 0px 20px 0px; /* Top, Right, Bottom, Left */
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .section h2 {
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .section p {
+        color: #666;
+        line-height: 1.6;
+      }
+
+      /* Welcome Section */
+      .welcome-section {
+        text-align: center;
+        color: beige;
+        margin: 40px 0;
+      }
+
+      .welcome-section h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .welcome-section p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: auto;
+        line-height: 1.5;
+      }
+
+      /* Footer Section */
+      footer {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .content-grid {
+          grid-template-columns: 1fr; /* Stack the grid items on small screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header with Auth Buttons -->
+    <header>
+      <div class="auth-buttons">
+        <a href="signin.html" class="auth-button">Log In</a>
+        <a href="signup.html" class="auth-button">Sign Up</a>
+      </div>
+      <h1>Welcome to Bulsu SRC Guidance and Counseling Portal</h1>
+    </header>
+
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1>Welcome to Our Counseling Services</h1>
+      <p>
+        Empowering students through personalized guidance and support. Explore
+        our resources, connect with counselors, and discover how we can help you
+        succeed in both your academic and personal life.
+      </p>
     </div>
-    <h1>Bulsu SRC Guidance and Counseling Portal</h1>
-  </header>
 
-  <!-- Welcome Section -->
-  <div class="welcome-section">
-    <h1>Welcome to Our Counseling Services</h1>
-    <p>Empowering students through personalized guidance and support. Explore our resources, connect with counselors, and discover how we can help you succeed in both your academic and personal life.</p>
-  </div>
+    <!-- Grid Layout for About, Services, and Rationale Sections -->
+    <div class="content-grid">
+      <!-- About Section -->
+      <div class="section" id="about">
+        <h2>About Us</h2>
+        <p>
+          At Bulacan State University—San Rafael Campus, we are committed to
+          enhancing student success through comprehensive support systems. Our
+          Comprehensive Cumulative Records Management System (CCRMS) is designed
+          to streamline the management of student records, improve access to
+          academic, counseling, and personal development data, and provide
+          guidance counselors with tools to better understand and support
+          student growth. By digitizing and integrating relevant student
+          information, we aim to empower counselors, academic advisers, and
+          administrators to make data-driven decisions that positively impact
+          student outcomes.
+        </p>
+      </div>
 
-  <!-- About Section -->
-  <div class="section" id="about">
-    <h2>About Us</h2>
-    <p>Our portal is dedicated to supporting the holistic development of Bulsu SRC students. Whether you're looking for counseling, academic support, or simply a listening ear, we’re here to guide you. Join our community and take a step toward a brighter future.</p>
-  </div>
+      <!-- Rationale Section -->
+      <div class="section" id="rationale">
+        <h2>Rationale</h2>
+        <p>
+          The need for an efficient, accessible, and user-friendly system to
+          manage student records is crucial for improving guidance and
+          counseling services. The current manual record-keeping system presents
+          challenges in accessing, updating, and analyzing student data. Our
+          CCRMS addresses these issues by digitizing records, making it easier
+          for counselors and advisers to track student progress, academic
+          performance, and personal development. This system not only reduces
+          administrative workload but also enhances the quality of counseling
+          interventions, leading to better support for students' academic and
+          personal growth. By improving the management of student data, the
+          CCRMS ultimately aims to contribute to higher student success rates
+          and more effective guidance services.
+        </p>
+      </div>
 
-  <!-- Services Section -->
-  <div class="section" id="services">
-    <h2>Our Services</h2>
-    <p>Explore the resources and support we offer:</p>
-    <ul style="list-style-type: none; padding: 0;">
-      <li><strong>Individual Counseling:</strong> One-on-one sessions tailored to your unique needs.</li>
-      <li><strong>Academic Support:</strong> Assistance with managing academic challenges and study techniques.</li>
-      <li><strong>Career Guidance:</strong> Tools and resources to help you shape your career path.</li>
-  </div>
+      <!-- Services Section -->
+      <div class="section" id="services">
+        <h2>Our Services</h2>
+        <p>Explore the resources and support we offer:</p>
+        <ul style="list-style-type: none; padding: 0">
+          <li>
+            <strong>Individual Counseling:</strong> One-on-one sessions tailored
+            to your unique needs.
+          </li>
+          <li>
+            <strong>Academic Support:</strong> Assistance with managing academic
+            challenges and study techniques.
+          </li>
+          <li>
+            <strong>Career Guidance:</strong> Tools and resources to help you
+            shape your career path.
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <!-- Footer Section -->
-  <footer style="background-color: #333; color: white; padding: 20px; text-align: center;">
-    <p>&copy; 2024 Bulsu SRC Guidance and Counseling Services Center. All rights reserved.</p>
-  </footer>
-
-</body>
+    <!-- Footer Section -->
+    <footer>
+      <p>
+        &copy; 2024 Bulsu SRC Guidance and Counseling Services Center. All
+        rights reserved.
+      </p>
+    </footer>
+  </body>
 </html>
