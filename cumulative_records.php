@@ -65,17 +65,18 @@ if ($filter_religion && $filter_religion != 'All') {
     $query .= " AND religion = '$filter_religion'";
 }
 
-// Handle number of siblings filter
 if ($filter_number_of_siblings && $filter_number_of_siblings != 'All') {
     if ($filter_number_of_siblings == '5') {
         // If the selected value is 5, fetch users with 5 or more siblings
         $query .= " AND number_of_siblings >= 5";
+    } elseif ($filter_number_of_siblings == '0') {
+        // If the selected value is 0, fetch users with exactly 0 siblings (Only Child)
+        $query .= " AND number_of_siblings = 0";
     } else {
         // For other values, filter by the exact number of siblings
         $query .= " AND number_of_siblings = '$filter_number_of_siblings'";
     }
 }
-
 if ($filter_marriage_status && $filter_marriage_status != 'All') {
     $query .= " AND marriage_status = '$filter_marriage_status'";
 }
@@ -261,7 +262,7 @@ mysqli_close($con);
                 <label for="number_of_siblings">Filter by No of Siblings:</label>
                 <select name="number_of_siblings" id="number_of_siblings">
                     <option value="All" <?php if ($filter_number_of_siblings == 'All') echo 'selected'; ?>>Filter All</option>
-                    <option value="0" <?php if ($filter_number_of_siblings == '0') echo 'selected'; ?>>0</option>
+                    <option value="0" <?php if ($filter_number_of_siblings == '0') echo 'selected'; ?>>Only Child</option>
                     <option value="1" <?php if ($filter_number_of_siblings == '1') echo 'selected'; ?>>1</option>
                     <option value="2" <?php if ($filter_number_of_siblings == '2') echo 'selected'; ?>>2</option>
                     <option value="3" <?php if ($filter_number_of_siblings == '3') echo 'selected'; ?>>3</option>
