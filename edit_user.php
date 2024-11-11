@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_user'])) {
     $birth_order = mysqli_real_escape_string($con, $_POST['birth_order']);
 
     // Update the user data in the database
-    $query = "UPDATE user_data SET email = ?, name = ?, course_section = ?, birth_order = ? WHERE id = ?";
+    $query = "UPDATE user_data SET email = ?, name = ?, course_section = ?, birth_order = ?, student_number = ?WHERE id = ?";
     if ($stmt = $con->prepare($query)) {
         $stmt->bind_param("ssssi", $email, $name, $course_section, $birth_order, $id);
         $stmt->execute();
@@ -62,6 +62,7 @@ $con->close();
 <!-- Edit User Form -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,7 +90,7 @@ $con->close();
             background-color: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: left;
         }
@@ -141,15 +142,16 @@ $con->close();
         }
     </style>
 </head>
+
 <body>
-<a href="cumulative_records.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
-    <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer circle -->
-        <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2"/>
-        <!-- Inner arrow shape -->
-        <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</a>
+    <a href="cumulative_records.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
+        <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer circle -->
+            <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2" />
+            <!-- Inner arrow shape -->
+            <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </a>
 
     <h1>Edit User Information</h1>
     <form action="" method="POST">
@@ -165,7 +167,11 @@ $con->close();
         <label for="birth_order">Birth Order:</label>
         <input type="text" name="birth_order" id="birth_order" value="<?php echo htmlspecialchars($user['birth_order']); ?>" required>
 
+        <label for="student_number">Student Number:</label>
+        <input type="text" name="student_number" id="student_number" value=" <?php echo htmlspecialchars($user['student_number']); ?>" required>
+
         <button type="submit" name="update_user">Update User</button>
     </form>
 </body>
+
 </html>

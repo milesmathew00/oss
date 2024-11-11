@@ -331,6 +331,9 @@ mysqli_close($con);
                         <option value="United Church of Christ in the Philippines">United Church of Christ in the Philippines</option>
                         <option value="Jehovah's Witness">Jehovah's Witness</option>
                         <option value="Church of Christ">Church of Christ</option>
+                        <option value="Born Again Christian">Born Again Christian</option>
+                        <option value="Christian">Christian</option>
+                        <option value="Catholic\Hindu">Catholic\Hindu</option>
                         <option value="Other">Other</option>
                     </select>
                     <input type="text" id="otherReligion" name="otherReligion" style="display:none;" placeholder="Please specify your religion" />

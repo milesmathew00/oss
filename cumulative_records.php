@@ -310,7 +310,6 @@ mysqli_close($con);
                             <!-- Add other columns as needed -->
                             <td>
                                 <a href="view_response.php?id=<?php echo htmlspecialchars($row['id']); ?>">View</a> |
-                                <a href="edit_user.php?id=<?php echo htmlspecialchars($row['id']); ?>">Edit</a> |
                                 <a href="delete_user.php?id=<?php echo htmlspecialchars($row['id']); ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
                             </td>
 
