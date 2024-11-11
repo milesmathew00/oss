@@ -227,7 +227,8 @@
     </header>
     <div class="sidebar">
         <h2>Instructions</h2>
-        <p>To fully utilize the system, both the <strong>Cumulative Record</strong> and the <strong>Problem Checklist</strong> need to be completed. While you can still access the <strong>Testing Service</strong>, please note the following:</p>
+        <p>To fully utilize the system, both the <strong><a href="cumulative_record.php">Cumulative Record</a>
+            </strong> and the <strong><a href="personal_info_form.php">Problem Checklist</a></strong> need to be completed. While you can still access the <strong>Testing Service</strong>, please note the following:</p>
         <ul>
             <li>You can access the Testing Service even if the forms are incomplete.</li>
             <li>However, the teacher will not be able to input any data or proceed with further actions until both records are fully completed.</li>
