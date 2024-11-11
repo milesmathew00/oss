@@ -72,7 +72,7 @@ if ($filter_number_of_siblings && $filter_number_of_siblings != 'All') {
         $query .= " AND number_of_siblings >= 5";
     } elseif ($filter_number_of_siblings == '0') {
         // If the selected value is 0, fetch users with exactly 0 siblings (Only Child)
-        $query .= " AND number_of_siblings = 0";
+        $query .= " AND number_of_siblings = 0";  // Make sure this matches the database value for 'Only Child'
     } else {
         // For other values, filter by the exact number of siblings
         $query .= " AND number_of_siblings = '$filter_number_of_siblings'";
@@ -265,7 +265,7 @@ mysqli_close($con);
                 <label for="number_of_siblings">Filter by No of Siblings:</label>
                 <select name="number_of_siblings" id="number_of_siblings">
                     <option value="All" <?php if ($filter_number_of_siblings == 'All') echo 'selected'; ?>>Filter All</option>
-                    <option value="0" <?php if ($filter_number_of_siblings == '0') echo 'selected'; ?>>Only Child</option>
+                    <option value="0" <?php if ($filter_number_of_siblings == '0') echo 'selected'; ?>>Solo Child</option>
                     <option value="1" <?php if ($filter_number_of_siblings == '1') echo 'selected'; ?>>1</option>
                     <option value="2" <?php if ($filter_number_of_siblings == '2') echo 'selected'; ?>>2</option>
                     <option value="3" <?php if ($filter_number_of_siblings == '3') echo 'selected'; ?>>3</option>
