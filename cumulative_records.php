@@ -48,22 +48,6 @@ while ($row = mysqli_fetch_assoc($religion_result)) {
 // Create the base query
 $query = "SELECT * FROM user_data WHERE 1";
 
-if ($filter_number_of_siblings != 'All') {
-    if ($filter_number_of_siblings == '0') {
-        $query .= " AND number_of_siblings = 0";
-    } elseif ($filter_number_of_siblings == '1') {
-        $query .= " AND number_of_siblings = 1";
-    } elseif ($filter_number_of_siblings == '2') {
-        $query .= " AND number_of_siblings = 2";
-    } elseif ($filter_number_of_siblings == '3') {
-        $query .= " AND number_of_siblings = 3";
-    } elseif ($filter_number_of_siblings == '4') {
-        $query .= " AND number_of_siblings = 4";
-    } elseif ($filter_number_of_siblings == '5') {
-        $query .= " AND number_of_siblings >= 5"; // For 5 or more siblings
-    } 
-}
-
 // Append filters if selected
 if ($filter_course_section && $filter_course_section != 'All') {
     $query .= " AND course_section = '$filter_course_section'";
@@ -80,13 +64,23 @@ if ($filter_monthly_income && $filter_monthly_income != 'All') {
 if ($filter_religion && $filter_religion != 'All') {
     $query .= " AND religion = '$filter_religion'";
 }
+
+// Handle number of siblings filter
 if ($filter_number_of_siblings && $filter_number_of_siblings != 'All') {
-    $query .= " AND number_of_siblings = '$filter_number_of_siblings'";
+    if ($filter_number_of_siblings == '5') {
+        // If the selected value is 5, fetch users with 5 or more siblings
+        $query .= " AND number_of_siblings >= 5";
+    } else {
+        // For other values, filter by the exact number of siblings
+        $query .= " AND number_of_siblings = '$filter_number_of_siblings'";
+    }
 }
 
 if ($filter_marriage_status && $filter_marriage_status != 'All') {
     $query .= " AND marriage_status = '$filter_marriage_status'";
 }
+
+// Execute the query
 $result = mysqli_query($con, $query);
 if (!$result) {
     die("Error fetching user data: " . mysqli_error($con));
@@ -273,9 +267,7 @@ mysqli_close($con);
                     <option value="3" <?php if ($filter_number_of_siblings == '3') echo 'selected'; ?>>3</option>
                     <option value="4" <?php if ($filter_number_of_siblings == '4') echo 'selected'; ?>>4</option>
                     <option value="5" <?php if ($filter_number_of_siblings == '5') echo 'selected'; ?>>5</option>
-                    <option value="6" <?php if ($filter_number_of_siblings == '6') echo 'selected'; ?>>6</option>
-                    <option value="7" <?php if ($filter_number_of_siblings == '7') echo 'selected'; ?>>7</option>
-                    
+
 
                 </select>
             </div>
