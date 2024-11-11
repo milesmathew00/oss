@@ -48,6 +48,22 @@ while ($row = mysqli_fetch_assoc($religion_result)) {
 // Create the base query
 $query = "SELECT * FROM user_data WHERE 1";
 
+if ($filter_number_of_siblings != 'All') {
+    if ($filter_number_of_siblings == '0') {
+        $query .= " AND number_of_siblings = 0";
+    } elseif ($filter_number_of_siblings == '1') {
+        $query .= " AND number_of_siblings = 1";
+    } elseif ($filter_number_of_siblings == '2') {
+        $query .= " AND number_of_siblings = 2";
+    } elseif ($filter_number_of_siblings == '3') {
+        $query .= " AND number_of_siblings = 3";
+    } elseif ($filter_number_of_siblings == '4') {
+        $query .= " AND number_of_siblings = 4";
+    } elseif ($filter_number_of_siblings == '5') {
+        $query .= " AND number_of_siblings >= 5"; // For 5 or more siblings
+    } 
+}
+
 // Append filters if selected
 if ($filter_course_section && $filter_course_section != 'All') {
     $query .= " AND course_section = '$filter_course_section'";
