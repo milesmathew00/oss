@@ -266,7 +266,7 @@ mysqli_close($con);
                     <option value="2" <?php if ($filter_number_of_siblings == '2') echo 'selected'; ?>>2</option>
                     <option value="3" <?php if ($filter_number_of_siblings == '3') echo 'selected'; ?>>3</option>
                     <option value="4" <?php if ($filter_number_of_siblings == '4') echo 'selected'; ?>>4</option>
-                    <option value="5" <?php if ($filter_number_of_siblings == '5') echo 'selected'; ?>>5</option>
+                    <option value="5" <?php if ($filter_number_of_siblings == '5') echo 'selected'; ?>>5 or more</option>
 
 
                 </select>
