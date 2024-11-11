@@ -18,7 +18,6 @@ $filter_religion = isset($_GET['religion']) ? mysqli_real_escape_string($con, $_
 $filter_number_of_siblings = isset($_GET['number_of_siblings']) ? mysqli_real_escape_string($con, $_GET['number_of_siblings']) : '';
 $filter_marriage_status = isset($_GET['marriage_status']) ? mysqli_real_escape_string($con, $_GET['marriage_status']) : '';
 
-
 // Query to get distinct course sections
 $course_query = "SELECT DISTINCT course_section FROM user_data ORDER BY course_section";
 $course_result = mysqli_query($con, $course_query);
@@ -64,6 +63,7 @@ if ($filter_monthly_income && $filter_monthly_income != 'All') {
 if ($filter_religion && $filter_religion != 'All') {
     $query .= " AND religion = '$filter_religion'";
 }
+
 if ($filter_number_of_siblings && $filter_number_of_siblings != 'All') {
     $query .= " AND number_of_siblings = '$filter_number_of_siblings'";
 }
@@ -71,6 +71,7 @@ if ($filter_number_of_siblings && $filter_number_of_siblings != 'All') {
 if ($filter_marriage_status && $filter_marriage_status != 'All') {
     $query .= " AND marriage_status = '$filter_marriage_status'";
 }
+
 $result = mysqli_query($con, $query);
 if (!$result) {
     die("Error fetching user data: " . mysqli_error($con));
@@ -79,8 +80,6 @@ if (!$result) {
 // Close the connection after all queries are done
 mysqli_close($con);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -187,7 +186,6 @@ mysqli_close($con);
             </svg>
         </a>
         <h1>Cumulative Dashboard</h1>
-
     </header>
     <div class="container">
         <h1>Form Responses</h1>
@@ -229,10 +227,7 @@ mysqli_close($con);
                     <option value="All" <?php if ($filter_monthly_income == 'All') echo 'selected'; ?>>Filter All</option>
                     <option value="Less Than 11,6990.00PHP" <?php if ($filter_monthly_income == 'Less Than 11,6990.00PHP"') echo 'selected'; ?>>Less Than 11,6990.00PHP"</option>
                     <option value="23,381-46,761.00PHP" <?php if ($filter_monthly_income == '23,381-46,761.00PHP') echo 'selected'; ?>>Lower Middle Income Between 23,381-46,761.00PHP</option>
-                    <option value="46,761-81,832.00PHP" <?php if ($filter_monthly_income == '46,761-81,832.00PHP') echo 'selected'; ?>>Middle Class Income 46,761-81,832.00PHP</option>
-                    <option value="81,832-140,284.00PHP" <?php if ($filter_monthly_income == '81,832-140,284.00PHP') echo 'selected'; ?>>Upper Middle Income 81,832-140,284.00PHP</option>
-                    <option value="140,284-233,806..00PHP" <?php if ($filter_monthly_income == '140,284-233,806..00PHP') echo 'selected'; ?>>Upper Income 140,284-233,806..00PHP</option>
-                    <option value="233,807.00PHP" <?php if ($filter_monthly_income == '233,807.00PHP') echo 'selected'; ?>>Rich Income Atleast 233,807.00PHP</option>
+                    <option value="46,761.00PHP+" <?php if ($filter_monthly_income == '46,761.00PHP+"') echo 'selected'; ?>>Middle Upper Income of 46,761.00PHP</option>
                 </select>
             </div>
 
@@ -247,20 +242,15 @@ mysqli_close($con);
                     <?php endforeach; ?>
                 </select>
             </div>
+
             <div>
-                <label for="number_of_siblings">Filter by No of Siblings:</label>
+                <label for="number_of_siblings">Filter by Number of Siblings:</label>
                 <select name="number_of_siblings" id="number_of_siblings">
                     <option value="All" <?php if ($filter_number_of_siblings == 'All') echo 'selected'; ?>>Filter All</option>
-                    <option value="0" <?php if ($filter_number_of_siblings == '0') echo 'selected'; ?>>0</option>
-                    <option value="1" <?php if ($filter_number_of_siblings == '1') echo 'selected'; ?>>1</option>
-                    <option value="2" <?php if ($filter_number_of_siblings == '2') echo 'selected'; ?>>2</option>
-                    <option value="3" <?php if ($filter_number_of_siblings == '3') echo 'selected'; ?>>3</option>
-                    <option value="4" <?php if ($filter_number_of_siblings == '4') echo 'selected'; ?>>4</option>
-                    <option value="5" <?php if ($filter_number_of_siblings == '5') echo 'selected'; ?>>5</option>
-                    <option value="6" <?php if ($filter_number_of_siblings == '6') echo 'selected'; ?>>6</option>
-                    <option value="7" <?php if ($filter_number_of_siblings == '7') echo 'selected'; ?>>7</option>
-                    
-
+                    <option value="Only Child" <?php if ($filter_number_of_siblings == 'Only Child') echo 'selected'; ?>>Only Child</option>
+                    <option value="1 Sibling" <?php if ($filter_number_of_siblings == '1 Sibling') echo 'selected'; ?>>1 Sibling</option>
+                    <option value="2-4 Siblings" <?php if ($filter_number_of_siblings == '2-4 Siblings') echo 'selected'; ?>>2-4 Siblings</option>
+                    <option value="5 or More" <?php if ($filter_number_of_siblings == '5 or More') echo 'selected'; ?>>5 or More</option>
                 </select>
             </div>
 
@@ -268,43 +258,35 @@ mysqli_close($con);
                 <label for="marriage_status">Filter by Marriage Status:</label>
                 <select name="marriage_status" id="marriage_status">
                     <option value="All" <?php if ($filter_marriage_status == 'All') echo 'selected'; ?>>Filter All</option>
+                    <option value="Single" <?php if ($filter_marriage_status == 'Single') echo 'selected'; ?>>Single</option>
                     <option value="Married" <?php if ($filter_marriage_status == 'Married') echo 'selected'; ?>>Married</option>
-                    <option value="Separated" <?php if ($filter_marriage_status == 'Separated') echo 'selected'; ?>>Separated</option>
                     <option value="Widowed" <?php if ($filter_marriage_status == 'Widowed') echo 'selected'; ?>>Widowed</option>
-                    <option value="Living-in" <?php if ($filter_marriage_status == 'Living-in') echo 'selected'; ?>>Living-in</option>
-                    <option value="Annulled" <?php if ($filter_marriage_status == 'Annulled') echo 'selected'; ?>>Annulled</option>
-                    <option value="Other" <?php if ($filter_marriage_status == 'Other') echo 'selected'; ?>>Other</option>
+                    <option value="Separated" <?php if ($filter_marriage_status == 'Separated') echo 'selected'; ?>>Separated</option>
                 </select>
             </div>
-            <div>
-                <button type="submit">Filter</button>
-            </div>
+
+            <button type="submit" style="padding: 10px 20px; background-color: #211ACA; color: white; border: none; cursor: pointer;">Filter</button>
         </form>
+
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-
-                        <th>Email</th>
-                        <th>Date&Time</th>
-                        <th>Student Number</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Course & Section</th>
                         <th>Birth Order</th>
                         <th>Family Income</th>
                         <th>Religion</th>
-                        <th>No of Siblings</th>
+                        <th>Number of Siblings</th>
                         <th>Marriage Status</th>
-                        <!-- Add other headers as needed -->
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row['email']); ?></td>
-                            <td><?php echo htmlspecialchars($row['datetime']); ?></td>
-                            <td><?php echo htmlspecialchars($row['student_number']); ?></td>
+                            <td><?php echo htmlspecialchars($row['id']); ?></td>
                             <td><?php echo htmlspecialchars($row['name']); ?></td>
                             <td><?php echo htmlspecialchars($row['course_section']); ?></td>
                             <td><?php echo htmlspecialchars($row['birth_order']); ?></td>
@@ -312,22 +294,20 @@ mysqli_close($con);
                             <td><?php echo htmlspecialchars($row['religion']); ?></td>
                             <td><?php echo htmlspecialchars($row['number_of_siblings']); ?></td>
                             <td><?php echo htmlspecialchars($row['marriage_status']); ?></td>
-                            <!-- Add other columns as needed -->
                             <td>
-                                <a href="view_response.php?id=<?php echo htmlspecialchars($row['id']); ?>">View</a> |
-                                <a href="delete_user.php?id=<?php echo htmlspecialchars($row['id']); ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                                <a href="view_user.php?id=<?php echo $row['id']; ?>">View</a> |
+                                <!-- <a href="edit_user.php?id=<?php echo $row['id']; ?>">Edit</a> | -->
+                                <a href="delete_user.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
                             </td>
-
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
-
             </table>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="cumprint.php?course_section=<?php echo urlencode($filter_course_section); ?>&birth_order=<?php echo urlencode($filter_birth_order); ?>&monthly_income=<?php echo urlencode($filter_monthly_income); ?>&religion=<?php echo urlencode($filter_religion); ?>&number_of_siblings=<?php echo urlencode($filter_number_of_siblings); ?>&marriage_status=<?php echo urlencode($filter_marriage_status); ?>" class="button" style="padding: 10px 20px; background-color: #211ACA; color: white; text-decoration: none; border-radius: 5px;">Print PDF</a>
-            </div>
-
         </div>
+
+        <!-- <form method="POST">
+            <button type="submit" name="logout" class="logout-button">Logout</button>
+        </form> -->
     </div>
 </body>
 
