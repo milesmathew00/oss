@@ -63,11 +63,6 @@ mysqli_close($con);
     <title>Demographic Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        #courseChart {
-            height: 500px;
-            width: 300px;
-        }
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f9fafb;
@@ -85,39 +80,6 @@ mysqli_close($con);
             text-align: center;
         }
 
-        .back-button {
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            /* Set to 5 columns */
-            gap: 20px;
-            width: 100%;
-            /* Use full width */
-            max-width: none;
-            /* Remove maximum width */
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            /* Space between charts */
-            justify-content: center;
-        }
-
-
-
         .chart-container {
             background-color: #fff;
             border-radius: 8px;
@@ -127,41 +89,21 @@ mysqli_close($con);
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 800px;
+            height: 500px;
             width: 600px;
             margin-bottom: 20px;
-            /* Space between rows */
-            /* Ensures two charts per row */
-            flex: 0 1 calc(50% - 20px);
         }
 
-        .chart-container h2 {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: repeat(2, 1fr);
-                /* 2 columns on small screens */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-                /* 1 column on very small screens */
-            }
+        .dropdown {
+            margin-bottom: 20px;
         }
     </style>
 
 </head>
 
 <body>
-    <a href="cumulative_records.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
-        <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <a href="javascript:history.back()" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black; transition: all 0.3s ease;">
+        <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Go to Previous Page">
             <!-- Outer circle -->
             <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2" />
             <!-- Inner arrow shape -->
@@ -169,63 +111,67 @@ mysqli_close($con);
         </svg>
     </a>
     <h1>Demographic Dashboard</h1>
-    <div class="dashboard">
-        <!-- Primary Data -->
-        <div class="chart-container">
-            <h2>Course Distribution</h2>
-            <canvas id="courseChart"></canvas>
-        </div>
 
-        <div class="chart-container">
-            <h2>Religion Distribution</h2>
-            <canvas id="religionChart"></canvas>
-        </div>
+    <div class="dropdown">
+        <label for="chartSelect">Select a Chart:</label>
+        <select id="chartSelect" onchange="showChart()">
+            <option value="courseChart">Course Distribution</option>
+            <option value="religionChart">Religion Distribution</option>
+            <option value="gender_identityChart">Gender Identity Distribution</option>
+            <option value="ageChart">Age Distribution</option>
+            <option value="civil_statusChart">Civil Status Distribution</option>
+            <option value="handicappedChart">Handicapped Status Distribution</option>
+            <option value="birth_orderChart">Birth Order Distribution</option>
+            <option value="number_of_siblingsChart">Number of Siblings Distribution</option>
+            <option value="parents_marital_statusChart">Parents' Marital Status Distribution</option>
+            <option value="family_incomeChart">Family Income Distribution</option>
+            <option value="marriage_statusChart">Marriage Status Distribution</option>
+        </select>
+    </div>
 
-        <!-- Additional Demographics -->
-        <div class="chart-container">
-            <h2>Gender Identity Distribution</h2>
-            <canvas id="gender_identityChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Age Distribution</h2>
-            <canvas id="ageChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Civil Status Distribution</h2>
-            <canvas id="civil_statusChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Handicapped Distribution</h2>
-            <canvas id="handicappedChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Birth Order Distribution</h2>
-            <canvas id="birth_orderChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Number of Siblings Distribution</h2>
-            <canvas id="number_of_siblingsChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Parents' Marital Status Distribution</h2>
-            <canvas id="parents_marital_statusChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Family Income Distribution</h2>
-            <canvas id="family_incomeChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <h2>Marriage Status Distribution</h2>
-            <canvas id="marriage_statusChart"></canvas>
-        </div>
+    <div class="chart-container" id="courseChartContainer">
+        <h2>Course Distribution</h2>
+        <canvas id="courseChart"></canvas>
+    </div>
+    <div class="chart-container" id="religionChartContainer" style="display: none;">
+        <h2>Religion Distribution</h2>
+        <canvas id="religionChart"></canvas>
+    </div>
+    <div class="chart-container" id="gender_identityChartContainer" style="display: none;">
+        <h2>Gender Identity Distribution</h2>
+        <canvas id="gender_identityChart"></canvas>
+    </div>
+    <div class="chart-container" id="ageChartContainer" style="display: none;">
+        <h2>Age Distribution</h2>
+        <canvas id="ageChart"></canvas>
+    </div>
+    <div class="chart-container" id="civil_statusChartContainer" style="display: none;">
+        <h2>Civil Status Distribution</h2>
+        <canvas id="civil_statusChart"></canvas>
+    </div>
+    <div class="chart-container" id="handicappedChartContainer" style="display: none;">
+        <h2>Handicapped Status Distribution</h2>
+        <canvas id="handicappedChart"></canvas>
+    </div>
+    <div class="chart-container" id="birth_orderChartContainer" style="display: none;">
+        <h2>Birth Order Distribution</h2>
+        <canvas id="birth_orderChart"></canvas>
+    </div>
+    <div class="chart-container" id="number_of_siblingsChartContainer" style="display: none;">
+        <h2>Number of Siblings Distribution</h2>
+        <canvas id="number_of_siblingsChart"></canvas>
+    </div>
+    <div class="chart-container" id="parents_marital_statusChartContainer" style="display: none;">
+        <h2>Parents' Marital Status Distribution</h2>
+        <canvas id="parents_marital_statusChart"></canvas>
+    </div>
+    <div class="chart-container" id="family_incomeChartContainer" style="display: none;">
+        <h2>Family Income Distribution</h2>
+        <canvas id="family_incomeChart"></canvas>
+    </div>
+    <div class="chart-container" id="marriage_statusChartContainer" style="display: none;">
+        <h2>Marriage Status Distribution</h2>
+        <canvas id="marriage_statusChart"></canvas>
     </div>
 
     <script>
@@ -244,60 +190,120 @@ mysqli_close($con);
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        display: true // Show y-axis ticks
+                        display: true
                     }
                 },
                 x: {
                     ticks: {
-                        display: true // Show x-axis ticks
+                        display: true
                     }
                 }
             }
         };
 
-        // Course Distribution
-        new Chart(document.getElementById('courseChart').getContext('2d'), {
-            type: 'doughnut',
-            data: {
+        const chartData = {
+            courseChart: {
                 labels: <?php echo json_encode($course_labels); ?>,
-                datasets: [{
-                    data: <?php echo json_encode($course_data); ?>,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)'
-                }]
+                data: <?php echo json_encode($course_data); ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)'
             },
-            options: chartOptions
-        });
-
-        // Religion Distribution
-        new Chart(document.getElementById('religionChart').getContext('2d'), {
-            type: 'pie',
-            data: {
+            religionChart: {
                 labels: <?php echo json_encode($religion_labels); ?>,
-                datasets: [{
-                    data: <?php echo json_encode($religion_data); ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                    borderColor: 'rgba(75, 192, 192, 1)'
-                }]
+                data: <?php echo json_encode($religion_data); ?>,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)'
             },
-            options: chartOptions
-        });
+            gender_identityChart: {
+                labels: <?php echo json_encode($demographic_data['gender_identity']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['gender_identity']['data']); ?>,
+                backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                borderColor: 'rgba(153, 102, 255, 1)'
+            },
+            ageChart: {
+                labels: <?php echo json_encode($demographic_data['age']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['age']['data']); ?>,
+                backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                borderColor: 'rgba(255, 159, 64, 1)'
+            },
+            civil_statusChart: {
+                labels: <?php echo json_encode($demographic_data['civil_status']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['civil_status']['data']); ?>,
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)'
+            },
+            handicappedChart: {
+                labels: <?php echo json_encode($demographic_data['handicapped']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['handicapped']['data']); ?>,
+                backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                borderColor: 'rgba(153, 102, 255, 1)'
+            },
+            birth_orderChart: {
+                labels: <?php echo json_encode($demographic_data['birth_order']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['birth_order']['data']); ?>,
+                backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                borderColor: 'rgba(255, 159, 64, 1)'
+            },
+            number_of_siblingsChart: {
+                labels: <?php echo json_encode($demographic_data['number_of_siblings']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['number_of_siblings']['data']); ?>,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)'
+            },
+            parents_marital_statusChart: {
+                labels: <?php echo json_encode($demographic_data['parents_marital_status']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['parents_marital_status']['data']); ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)'
+            },
+            family_incomeChart: {
+                labels: <?php echo json_encode($demographic_data['family_income']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['family_income']['data']); ?>,
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)'
+            },
+            marriage_statusChart: {
+                labels: <?php echo json_encode($demographic_data['marriage_status']['labels']); ?>,
+                data: <?php echo json_encode($demographic_data['marriage_status']['data']); ?>,
+                backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                borderColor: 'rgba(255, 159, 64, 1)'
+            }
+        };
 
-        // Demographic Charts
-        <?php foreach ($demographic_data as $attribute => $data): ?>
-            new Chart(document.getElementById('<?php echo $attribute; ?>Chart').getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: <?php echo json_encode($data["labels"]); ?>,
-                    datasets: [{
-                        data: <?php echo json_encode($data["data"]); ?>,
-                        backgroundColor: 'rgba(153, 102, 255, 0.5)',
-                        borderColor: 'rgba(153, 102, 255, 1)'
-                    }]
-                },
-                options: chartOptions
+        let charts = {};
+
+        function showChart() {
+            const selectedChart = document.getElementById("chartSelect").value;
+
+            // Hide all charts
+            Object.keys(charts).forEach(chart => {
+                document.getElementById(chart + 'Container').style.display = 'none';
             });
-        <?php endforeach; ?>
+
+            // Show the selected chart
+            document.getElementById(selectedChart + 'Container').style.display = 'block';
+
+            // Create chart if not already created
+            if (!charts[selectedChart]) {
+                const ctx = document.getElementById(selectedChart).getContext('2d');
+                charts[selectedChart] = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData[selectedChart].labels,
+                        datasets: [{
+                            label: 'Count',
+                            data: chartData[selectedChart].data,
+                            backgroundColor: chartData[selectedChart].backgroundColor,
+                            borderColor: chartData[selectedChart].borderColor,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+        }
+
+        showChart(); // Show default chart
     </script>
 </body>
 

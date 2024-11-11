@@ -200,14 +200,15 @@ mysqli_close($con);
 </head>
 
 <body>
-    <a href="homepage.php" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
-        <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Outer circle -->
-            <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2" />
-            <!-- Inner arrow shape -->
-            <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </a>
+    <div id="backButtonContainer">
+        <a href="javascript:window.history.back();" style="position: absolute; top: 20px; left: 40px; text-decoration: none; color: black;">
+            <svg width="54" height="74" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="#F7F7F7" stroke="black" stroke-width="2" />
+                <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+    </div>
+
     <br><br>
     <div class="container">
 
@@ -237,7 +238,40 @@ mysqli_close($con);
                 </div>
                 <div class="form-group">
                     <label for="course_section">Course & Section:</label>
-                    <input type="text" name="course_section" id="course_section" required>
+                    <select name="course_section" id="course_section" required>
+                        <option value="">Select Course & Section</option>
+                        <!-- BSP Options -->
+                        <optgroup label="Bachelor of Science in Psychology ">
+                            <option value="BSP 1A">BSP 1A</option>
+                            <option value="BSP 2A">BSP 2A</option>
+                            <option value="BSP 3A">BSP 3A</option>
+                            <option value="BSP 4A">BSP 4A</option>
+                        </optgroup>
+                        <!-- BSMT Options -->
+                        <optgroup label="Bachelor of Science in Medical Technology">
+                            <option value="BSMT 1A">BSMT 1A</option>
+                            <option value="BSMT 2A">BSMT 2A</option>
+                            <option value="BSMT 3A">BSMT 3A</option>
+                            <option value="BSMT 4A">BSMT 4A</option>
+                        </optgroup>
+                        <!-- BSB Options -->
+                        <optgroup label="Bachelor of Science in Biology">
+                            <option value="BSB 1A">BSB 1A</option>
+                            <option value="BSB 2A">BSB 2A</option>
+                            <option value="BSB 3A">BSB 3A</option>
+                            <option value="BSB 4A">BSB 4A</option>
+                        </optgroup>
+                        <!-- BSN Options -->
+                        <optgroup label="Bachelor of Science in Nursing,">
+                            <option value="BSN 1A">BSN 1A</option>
+                            <option value="BSN 1B">BSN 1B</option>
+                            <option value="BSN 2A">BSN 2A</option>
+                            <option value="BSN 2B">BSN 2B</option>
+                            <option value="BSN 3A">BSN 3A</option>
+                            <option value="BSN 4A">BSN 4A</option>
+                            <option value="BSN 4A">BSN 4B</option>
+                        </optgroup>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="mobile_number">Mobile Number:</label>
@@ -250,27 +284,29 @@ mysqli_close($con);
                         <option value="Girl">Girl</option>
                         <option value="Prefer not to say">Prefer not to say</option>
                     </select>
+                    <div class="form-group">
+                        <label for="gender_identity">Gender Identity:</label>
+                        <select name="gender_identity" id="gender_identity" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Transgender">Transgender</option>
+                            <option value="Non-binary/non-conforming">Non-binary/non-conforming</option>
+                            <option value="Prefer not to respond">Prefer not to respond</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" name="dob" id="dob" required>
+                        </div>
+                    </div>
                 </div> <button type="button" onclick="nextStep()">Next</button>
+
                 <p>Here you can see our <a href="terms2.html">Terms And Condition</a> as well as our <a href="privacypolicy2.html">Privacy Policy</a> and
                     you may receive SMS Notifications from us and can opt out any time.</p>
             </div>
             <!-- Step 2: More Personal Details -->
             <div class="step">
-                <div class="form-group">
-                    <label for="gender_identity">Gender Identity:</label>
-                    <select name="gender_identity" id="gender_identity" required>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Transgender">Transgender</option>
-                        <option value="Non-binary/non-conforming">Non-binary/non-conforming</option>
-                        <option value="Prefer not to respond">Prefer not to respond</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" name="dob" id="dob" required>
-                </div>
+                <p>Please fill out all fields. If a field is not applicable, please enter 'N/A'.</p>
                 <div class="form-group">
                     <label for="age">Age:</label>
                     <input type="number" name="age" id="age" required>
@@ -281,7 +317,23 @@ mysqli_close($con);
                 </div>
                 <div class="form-group">
                     <label for="religion">Religion:</label>
-                    <input type="text" name="religion" id="religion">
+                    <select name="religion" id="religion"
+                        onchange="this.value === 'Other' ? document.getElementById('otherReligion').style.display = 'block' : document.getElementById('otherReligion').style.display = 'none';"
+                        required>
+                        <option value="">Select Religion</option>
+                        <option value="Roman Catholic">Roman Catholic</option>
+                        <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Seventh Day Adventist">Seventh Day Adventist</option>
+                        <option value="Aglipay">Aglipay</option>
+                        <option value="Iglesia Filipina Independiente">Iglesia Filipina Independiente</option>
+                        <option value="Bible Baptist Church">Bible Baptist Church</option>
+                        <option value="United Church of Christ in the Philippines">United Church of Christ in the Philippines</option>
+                        <option value="Jehovah's Witness">Jehovah's Witness</option>
+                        <option value="Church of Christ">Church of Christ</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="otherReligion" name="otherReligion" style="display:none;" placeholder="Please specify your religion" />
                 </div>
                 <div class="form-group">
                     <label for="civil_status">Civil Status:</label>
@@ -317,6 +369,7 @@ mysqli_close($con);
                     <select name="employed" id="employed">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
+
                     </select>
                 </div>
                 <div class="form-group">
@@ -332,6 +385,7 @@ mysqli_close($con);
                     you may receive SMS Notifications from us and can opt out any time.</p>
             </div>
             <div class="step">
+                <p>Please fill out all fields. If a field is not applicable, please enter 'N/A'.</p>
                 <div class="form-group">
                     <label for="handicapped">Any Common Handicapped, Ailment, or Problem:</label>
                     <input type="text" name="handicapped" id="handicapped">
@@ -414,6 +468,7 @@ mysqli_close($con);
             </div>
 
             <div class="step">
+                <p>Please fill out all fields. If a field is not applicable, please enter 'N/A'.</p>
                 <div class="form-group">
                     <label for="fathers_occupation">Father's Occupation:</label>
                     <input type="text" name="fathers_occupation" id="fathers_occupation">
@@ -458,72 +513,28 @@ mysqli_close($con);
 
                 <div class="form-group"> <label for="mothers_company">Name of Mother's Company:</label>
                     <input type="text" name="mothers_company" id="mothers_company">
+
+                    <div class="form-group"> <label for="family_income">Family Monthly Income:</label>
+                        <select name="family_income" id="family_income" required>
+                    </div>
+                    <option value="Less Than 11,6990.00PHP">Poor Income Less Than 11,6990.00PHP</option>
+                    <option value="23,381-46,761.00PHP">Lower Middle Income Between 23,381-46,761.00PHP</option>
+                    <option value="46,761-81,832.00PHP">Middle Class Income 46,761-81,832..00PHP</option>
+                    <option value="81,832-140,284.00PHP">Upper Middle Income 81,832-140,284.00PHP</option>
+                    <option value="140,284-233,806..00PHP">Upper Income 140,284-233,806..00PHP</option>
+                    <option value="233,807.00PHP">Rich Income Atleast 233,807..00PHP</option>
+                    </select>
                 </div>
-                <button type="button" onclick="prevStep()">Previous</button>
-                <button type="button" onclick="nextStep()">Next</button>
-                <p>Here you can see our <a href="terms2.html">Terms And Condition</a> as well as our <a href="privacypolicy2.html">Privacy Policy</a> and
-                    you may receive SMS Notifications from us and can opt out any time.</p>
-            </div>
-            <div class="step">
-                <div class="form-group"> <label for="family_income">Family Monthly Income:</label>
-                    <select name="family_income" id="family_income" required>
+                <div class="form-group"> <label for="marriage_status">Marriage Status:</label>
+                    <select name="marriage_status" id="marriage_status">
+                        <option value="Married">Married</option>
+                        <option value="Separated">Separated</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Living-in">Living-in</option>
+                        <option value="Annulled">Annulled</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
-                <option value="Less Than 11,6990.00PHP">Poor Income Less Than 11,6990.00PHP</option>
-                <option value="23,381-46,761.00PHP">Lower Middle Income Between 23,381-46,761.00PHP</option>
-                <option value="46,761-81,832.00PHP">Middle Class Income 46,761-81,832..00PHP</option>
-                <option value="81,832-140,284.00PHP">Upper Middle Income 81,832-140,284.00PHP</option>
-                <option value="140,284-233,806..00PHP">Upper Income 140,284-233,806..00PHP</option>
-                <option value="233,807.00PHP">Rich Income Atleast 233,807..00PHP</option>
-                </select>
-            </div>
-            <!-- Questions for Married Individuals -->
-            <div class="form-group"> <label for="marriage_status">Marriage Status:</label>
-                <select name="marriage_status" id="marriage_status">
-                    <option value="Married">Married</option>
-                    <option value="Separated">Separated</option>
-                    <option value="Widowed">Widowed</option>
-                    <option value="Living-in">Living-in</option>
-                    <option value="Annulled">Annulled</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-
-            <h1>Spouse DATA</h1>
-            <div class="form-group"> <label for="spouse_name">Name of Spouse:</label>
-                <input type="text" name="spouse_name" id="spouse_name">
-            </div>
-
-            <div class="form-group"> <label for="spouse_dob">Date of Birth of Spouse:</label>
-                <input type="date" name="spouse_dob" id="spouse_dob">
-            </div>
-
-            <div class="form-group"> <label for="spouse_education">Highest Educational Attainment of Spouse:</label>
-                <select name="spouse_education" id="spouse_education">
-                    <option value="Graduate School Graduate MAPhD">Graduate School Graduate MAPhD</option>
-                    <option value="Graduate School Undergraduate MAPhD">Graduate School Undergraduate MAPhD</option>
-                    <option value="College Graduate">College Graduate</option>
-                    <option value="College Undergraduate">College Undergraduate</option>
-                    <option value="Vocational Graduate">Vocational Graduate</option>
-                    <option value="Vocational Undergraduate">Vocational Undergraduate</option>
-                    <option value="High School Graduate">High School Graduate</option>
-                    <option value="High School Undergraduate">High School Undergraduate</option>
-                    <option value="Elementary Graduate">Elementary Graduate</option>
-                    <option value="Elementary Undergraduate">Elementary Undergraduate</option>
-                    <option value="None">None</option>
-                </select>
-            </div>
-
-            <div class="form-group"> <label for="spouse_occupation">Occupation of Spouse:</label>
-                <input type="text" name="spouse_occupation" id="spouse_occupation">
-            </div>
-
-            <div class="form-group"> <label for="spouse_company">Name of Spouse's Company:</label>
-                <input type="text" name="spouse_company" id="spouse_company">
-            </div>
-
-            <div class="form-group"> <label for="spouse_contact">Contact Number of Spouse:</label>
-                <input type="tel" name="spouse_contact" id="spouse_contact">
             </div>
             <button type="button" onclick="prevStep()">Previous</button>
             <button type="button" onclick="nextStep()">Next</button>
@@ -531,8 +542,53 @@ mysqli_close($con);
                 you may receive SMS Notifications from us and can opt out any time.</p>
     </div>
     <div class="step">
+        <p>Please fill out all fields. If a field is not applicable, please enter "N/A". For date fields (such as Date of Birth), you may click the calendar icon and select "Clear" to leave it empty.</p>
+
+        <h1>Spouse DATA</h1>
+        <div class="form-group"> <label for="spouse_name">Name of Spouse:</label>
+            <input type="text" name="spouse_name" id="spouse_name">
+        </div>
+
+        <div class="form-group"> <label for="spouse_dob">Date of Birth of Spouse:</label>
+            <input type="date" name="spouse_dob" id="spouse_dob">
+        </div>
+
+        <div class="form-group"> <label for="spouse_education">Highest Educational Attainment of Spouse:</label>
+            <select name="spouse_education" id="spouse_education">
+                <option value="Graduate School Graduate MAPhD">Graduate School Graduate MAPhD</option>
+                <option value="Graduate School Undergraduate MAPhD">Graduate School Undergraduate MAPhD</option>
+                <option value="College Graduate">College Graduate</option>
+                <option value="College Undergraduate">College Undergraduate</option>
+                <option value="Vocational Graduate">Vocational Graduate</option>
+                <option value="Vocational Undergraduate">Vocational Undergraduate</option>
+                <option value="High School Graduate">High School Graduate</option>
+                <option value="High School Undergraduate">High School Undergraduate</option>
+                <option value="Elementary Graduate">Elementary Graduate</option>
+                <option value="Elementary Undergraduate">Elementary Undergraduate</option>
+                <option value="None">None</option>
+            </select>
+        </div>
+
+        <div class="form-group"> <label for="spouse_occupation">Occupation of Spouse:</label>
+            <input type="text" name="spouse_occupation" id="spouse_occupation">
+        </div>
+
+        <div class="form-group"> <label for="spouse_company">Name of Spouse's Company:</label>
+            <input type="text" name="spouse_company" id="spouse_company">
+        </div>
+
+        <div class="form-group"> <label for="spouse_contact">Contact Number of Spouse:</label>
+            <input type="tel" name="spouse_contact" id="spouse_contact">
+        </div>
+        <button type="button" onclick="prevStep()">Previous</button>
+        <button type="button" onclick="nextStep()">Next</button>
+        <p>Here you can see our <a href="terms2.html">Terms And Condition</a> as well as our <a href="privacypolicy2.html">Privacy Policy</a> and
+            you may receive SMS Notifications from us and can opt out any time.</p>
+    </div>
+    <div class="step">
+        <p>Please fill out all fields. If a field is not applicable, please enter 'N/A'.</p>
         <!-- Educational Background -->
-        <h2>Educational Background</h2> <!-- Elementary -->
+        <h1>Educational Background</h1> <!-- Elementary -->
         <div class="form-group"> <label for="elem_school">Elementary School:</label>
             <input type="text" name="elem_school" id="elem_school">
         </div>
@@ -671,30 +727,35 @@ mysqli_close($con);
 
 
     <script>
+        // Multi-step form functionality
         let currentStep = 0;
         const steps = document.querySelectorAll('.step');
 
         function showStep(step) {
+            // Show the current step and hide others
             steps.forEach((element, index) => {
                 element.classList.toggle('active', index === step);
             });
 
-            // Show/hide the submit button based on the current step
+            // Show/hide the submit button on the last step
             const submitButton = document.querySelector('button[type="submit"]');
-            if (step === steps.length - 1) {
-                submitButton.style.display = 'block'; // Show the submit button on the last step
-            } else {
-                submitButton.style.display = 'none'; // Hide the submit button on other steps
-            }
+            submitButton.style.display = (step === steps.length - 1) ? 'block' : 'none';
+
+            // Show the back button only on the first step
+            const backButtonContainer = document.getElementById("backButtonContainer");
+            backButtonContainer.style.display = (step === 0) ? 'block' : 'none';
         }
 
+        // Initialize the form by showing the first step
+        showStep(currentStep);
+
         function nextStep() {
-            var currentStepElement = steps[currentStep];
-            var inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
-            var valid = true;
+            const currentStepElement = steps[currentStep];
+            const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+            let valid = true;
 
             // Check if all required inputs in the current step are filled
-            inputs.forEach(function(input) {
+            inputs.forEach(input => {
                 if (!input.value) {
                     input.classList.add('error');
                     valid = false;
@@ -715,12 +776,216 @@ mysqli_close($con);
         }
 
         function prevStep() {
+            // Move to the previous step if not on the first step
             if (currentStep > 0) {
                 currentStep--;
                 showStep(currentStep);
             }
         }
+
+
+        // Check if localStorage is available
+        window.onload = function() {
+            if (typeof(Storage) !== "undefined") {
+                // Load stored values for the first set of fields
+                document.getElementById("email").value = localStorage.getItem("email") || '';
+                document.getElementById("datetime").value = localStorage.getItem("datetime") || '';
+                document.getElementById("student_number").value = localStorage.getItem("student_number") || '';
+                document.getElementById("name").value = localStorage.getItem("name") || '';
+                document.getElementById("nickname").value = localStorage.getItem("nickname") || '';
+                document.getElementById("course_section").value = localStorage.getItem("course_section") || '';
+                document.getElementById("mobile_number").value = localStorage.getItem("mobile_number") || '';
+                document.getElementById("sex_at_birth").value = localStorage.getItem("sex_at_birth") || '';
+                document.getElementById("gender_identity").value = localStorage.getItem("gender_identity") || '';
+                document.getElementById("dob").value = localStorage.getItem("dob") || '';
+
+                // Load stored values for the second set of fields
+                document.getElementById("age").value = localStorage.getItem("age") || '';
+                document.getElementById("place_of_birth").value = localStorage.getItem("place_of_birth") || '';
+                document.getElementById("religion").value = localStorage.getItem("religion") || '';
+                document.getElementById("civil_status").value = localStorage.getItem("civil_status") || 'Single';
+                document.getElementById("permanent_address").value = localStorage.getItem("permanent_address") || '';
+                document.getElementById("present_address").value = localStorage.getItem("present_address") || '';
+                document.getElementById("living_status").value = localStorage.getItem("living_status") || 'With parents';
+                document.getElementById("employed").value = localStorage.getItem("employed") || 'No';
+                document.getElementById("company_name").value = localStorage.getItem("company_name") || '';
+                document.getElementById("job_title").value = localStorage.getItem("job_title") || '';
+
+                // Load stored form data for siblings and parents' marital status
+                document.getElementById("handicapped").value = localStorage.getItem("handicapped") || '';
+                document.getElementById("emergency_contact").value = localStorage.getItem("emergency_contact") || '';
+                document.getElementById("relation_to_emergency_contact").value = localStorage.getItem("relation_to_emergency_contact") || '';
+                document.getElementById("emergency_contact_number").value = localStorage.getItem("emergency_contact_number") || '';
+                document.getElementById("number_of_siblings").value = localStorage.getItem("number_of_siblings") || '';
+                document.getElementById("parents_marital_status").value = localStorage.getItem("parents_marital_status") || '';
+
+                // Load father's data if saved in localStorage
+                document.getElementById("fathers_name").value = localStorage.getItem("fathers_name") || '';
+                document.getElementById("fathers_dob").value = localStorage.getItem("fathers_dob") || '';
+                document.getElementById("fathers_age").value = localStorage.getItem("fathers_age") || '';
+                document.getElementById("fathers_education").value = localStorage.getItem("fathers_education") || '';
+                document.getElementById("fathers_occupation").value = localStorage.getItem("fathers_occupation") || '';
+                document.getElementById("fathers_company").value = localStorage.getItem("fathers_company") || '';
+
+                //mothers
+                document.getElementById("mothers_maiden_name").value = localStorage.getItem("mothers_maiden_name") || '';
+                document.getElementById("mothers_dob").value = localStorage.getItem("mothers_dob") || '';
+                document.getElementById("mothers_age").value = localStorage.getItem("mothers_age") || '';
+                document.getElementById("mothers_education").value = localStorage.getItem("mothers_education") || '';
+                document.getElementById("mothers_occupation").value = localStorage.getItem("mothers_occupation") || '';
+                document.getElementById("mothers_company").value = localStorage.getItem("mothers_company") || '';
+                document.getElementById("family_income").value = localStorage.getItem("family_income") || '';
+
+                //spouse
+                document.getElementById("spouse_name").value = localStorage.getItem("spouse_name") || '';
+                document.getElementById("spouse_dob").value = localStorage.getItem("spouse_dob") || '';
+                document.getElementById("spouse_education").value = localStorage.getItem("spouse_education") || '';
+                document.getElementById("spouse_occupation").value = localStorage.getItem("spouse_occupation") || '';
+                document.getElementById("spouse_company").value = localStorage.getItem("spouse_company") || '';
+                document.getElementById("spouse_contact").value = localStorage.getItem("spouse_contact") || '';
+
+                //elem
+                document.getElementById("elem_school").value = localStorage.getItem("elem_school") || '';
+                document.getElementById("elem_type").value = localStorage.getItem("elem_type") || '';
+                document.getElementById("elem_years").value = localStorage.getItem("elem_years") || '';
+                document.getElementById("elem_awards").value = localStorage.getItem("elem_awards") || '';
+
+                //jhs
+                document.getElementById("junior_high_school").value = localStorage.getItem("junior_high_school") || '';
+                document.getElementById("junior_type").value = localStorage.getItem("junior_type") || '';
+                document.getElementById("junior_years").value = localStorage.getItem("junior_years") || '';
+                document.getElementById("junior_awards").value = localStorage.getItem("junior_awards") || '';
+
+                //shs
+                document.getElementById("senior_high_school").value = localStorage.getItem("senior_high_school") || '';
+                document.getElementById("senior_type").value = localStorage.getItem("senior_type") || '';
+                document.getElementById("senior_years").value = localStorage.getItem("senior_years") || '';
+                document.getElementById("senior_awards").value = localStorage.getItem("senior_awards") || '';
+
+                //college
+                document.getElementById("college_course").value = localStorage.getItem("college_course") || '';
+                document.getElementById("college_type").value = localStorage.getItem("college_type") || '';
+                document.getElementById("college_years").value = localStorage.getItem("college_years") || '';
+                document.getElementById("college_awards").value = localStorage.getItem("college_awards") || '';
+
+                //coc act
+                document.getElementById("special_skills").value = localStorage.getItem("special_skills") || '';
+                document.getElementById("hobbies").value = localStorage.getItem("hobbies") || '';
+                document.getElementById("ambition").value = localStorage.getItem("ambition") || '';
+                document.getElementById("motto").value = localStorage.getItem("motto") || '';
+                document.getElementById("characteristics").value = localStorage.getItem("characteristics") || '';
+                document.getElementById("influence").value = localStorage.getItem("influence") || '';
+                document.getElementById("concern").value = localStorage.getItem("concern") || '';
+
+
+            } else {
+                console.log("localStorage is not supported on this browser.");
+            }
+        };
+
+
+
+        // Save form data to localStorage whenever a user changes a field
+        function saveToLocalStorage(id) {
+            document.getElementById(id).addEventListener("input", function() {
+                localStorage.setItem(id, this.value);
+            });
+        }
+
+        // Attach the saveToLocalStorage function to all form fields
+        window.addEventListener("DOMContentLoaded", function() {
+            // For the first set of fields
+            saveToLocalStorage("email");
+            saveToLocalStorage("datetime");
+            saveToLocalStorage("student_number");
+            saveToLocalStorage("name");
+            saveToLocalStorage("nickname");
+            saveToLocalStorage("course_section");
+            saveToLocalStorage("mobile_number");
+            saveToLocalStorage("sex_at_birth");
+            saveToLocalStorage("gender_identity");
+            saveToLocalStorage("dob");
+
+            // For the second set of fields
+            saveToLocalStorage("age");
+            saveToLocalStorage("place_of_birth");
+            saveToLocalStorage("religion");
+            saveToLocalStorage("civil_status");
+            saveToLocalStorage("permanent_address");
+            saveToLocalStorage("present_address");
+            saveToLocalStorage("living_status");
+            saveToLocalStorage("employed");
+            saveToLocalStorage("company_name");
+            saveToLocalStorage("job_title");
+
+            // For the third set of fields (siblings and father's data)
+            saveToLocalStorage("handicapped");
+            saveToLocalStorage("emergency_contact");
+            saveToLocalStorage("relation_to_emergency_contact");
+            saveToLocalStorage("emergency_contact_number");
+            saveToLocalStorage("birth_order");
+            saveToLocalStorage("number_of_siblings");
+            saveToLocalStorage("parents_marital_status");
+            saveToLocalStorage("fathers_name");
+            saveToLocalStorage("fathers_dob");
+            saveToLocalStorage("fathers_age");
+            saveToLocalStorage("fathers_education");
+
+            //
+            saveToLocalStorage("fathers_occupation");
+            saveToLocalStorage("fathers_company");
+            saveToLocalStorage("mothers_maiden_name");
+            saveToLocalStorage("mothers_dob");
+            saveToLocalStorage("mothers_age");
+            saveToLocalStorage("mothers_education");
+            saveToLocalStorage("mothers_occupation");
+            saveToLocalStorage("mothers_company");
+            saveToLocalStorage("family_income");
+
+            //
+            saveToLocalStorage("spouse_name");
+            saveToLocalStorage("spouse_dob");
+            saveToLocalStorage("spouse_education");
+            saveToLocalStorage("spouse_occupation");
+            saveToLocalStorage("spouse_company");
+            saveToLocalStorage("spouse_contact");
+
+            // elem
+            saveToLocalStorage("elem_school");
+            saveToLocalStorage("elem_type");
+            saveToLocalStorage("elem_years");
+            saveToLocalStorage("elem_awards");
+
+            // jhs
+            saveToLocalStorage("junior_high_school");
+            saveToLocalStorage("junior_type");
+            saveToLocalStorage("junior_years");
+            saveToLocalStorage("junior_awards");
+
+            //shs
+            saveToLocalStorage("senior_high_school");
+            saveToLocalStorage("senior_type");
+            saveToLocalStorage("senior_years");
+            saveToLocalStorage("senior_awards");
+
+            //collge
+            saveToLocalStorage("college_course");
+            saveToLocalStorage("college_type");
+            saveToLocalStorage("college_years");
+            saveToLocalStorage("college_awards");
+
+
+            // coc act
+            saveToLocalStorage("special_skills");
+            saveToLocalStorage("hobbies");
+            saveToLocalStorage("ambition");
+            saveToLocalStorage("motto");
+            saveToLocalStorage("characteristics");
+            saveToLocalStorage("influence");
+            saveToLocalStorage("concern");
+        });
     </script>
+
 </body>
 
 </html>
