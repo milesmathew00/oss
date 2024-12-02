@@ -220,16 +220,16 @@
     <div class="container">
         <h1>Admin Dashboard</h1>
         <div class="button-group">
-            <a href="#" class="dashboard-button" onclick="toggleActionButtons('testing-service')">Testing Service</a>
+            <a href="admin_input.php" class="dashboard-button">Testing Service</a>
             <a href="admin_display_selections.php" class="dashboard-button">Mooney Checklist</a>
             <a href="cumulative_records.php" class="dashboard-button">Cumulative Record</a>
             <a href="slip.php" class="dashboard-button">Call Slip</a>
         </div>
 
-        <div id="testing-service" class="action-buttons">
+        <!-- <div id="testing-service" class="action-buttons">
             <a href="admin_input.php" class="action-button">INSERT</a>
             <a href="edit_test_data.php" class="action-button">EDIT/DELETE</a>
-        </div>
+        </div> -->
     </div>
 
     <script>

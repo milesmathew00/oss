@@ -556,20 +556,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
 
             <!-- Submit button -->
             <button type="submit" name="submit_top_20">Submit Top 20</button>
+
+
+
         <?php else: ?>
             <p>Top 20 concerns submitted!</p>
         <?php endif; ?>
         </form>
         <!-- Display the Top 5 selection form only if the Top 20 concerns have been submitted -->
         <?php if ($top20_submitted): ?>
+            <?php
+            // Sort the concerns in ascending order based on their natural number
+            natsort($top_20_concerns); // Sorts the array in natural order
+            ?>
+
+            <h2>Your Top 20 Concerns</h2>
+            <ul>
+                <?php
+                // Display the sorted concerns
+                foreach ($top_20_concerns as $concern) {
+                    echo '<li>' . htmlspecialchars($concern) . '</li>';
+                }
+                ?>
+            </ul>
+
             <form method="POST">
-                <h3>Select Your Top
-                    5 Immediate Concerns</h3>
+                <h3>Select Your Top 5 Immediate Concerns</h3>
                 <div class="concern-list">
                     <!-- Populate the top 5 concerns dynamically as checkboxes -->
-                    <?php foreach ($top_5_concerns as $concern): ?>
+                    <?php foreach ($top_20_concerns as $concern): ?>
                         <label>
-                            <input type="checkbox" name="concerns_top_5[]" value="<?= htmlspecialchars($concern) ?>">
+                            <input type="checkbox" name="concerns_top_5[]" value="<?= htmlspecialchars($concern) ?>"
+                                onchange="updateTop5Counter(this)">
                             <?= htmlspecialchars($concern) ?>
                         </label>
                     <?php endforeach; ?>
@@ -577,7 +595,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
                 <p>Selected concerns: <span id="top5Counter">0</span>/5</p>
                 <button type="submit" name="submit_top_5">Submit Top 5</button>
             </form>
+
+            <script>
+                // JavaScript to count and limit the number of selected checkboxes
+                function updateTop5Counter(checkbox) {
+                    const maxSelection = 5;
+                    const counter = document.getElementById('top5Counter');
+                    const selectedCheckboxes = document.querySelectorAll('input[name="concerns_top_5[]"]:checked');
+
+                    if (selectedCheckboxes.length > maxSelection) {
+                        checkbox.checked = false; // Prevent selecting more than 5
+                        alert(`You can only select up to ${maxSelection} concerns.`);
+                    }
+                    counter.textContent = selectedCheckboxes.length;
+                }
+            </script>
         <?php endif; ?>
-</body>
+
 
 </html>
