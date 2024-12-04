@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
                     $sql = "INSERT INTO testing_service (user_id, name_of_test, date, dimension_aspect, raw_score, percentile, description) 
                         VALUES ('$user_id', '$name_of_test', '$date', '$dimension_aspect', '$raw_score', '$percentile', '$description')";
                     if (mysqli_query($con, $sql)) {
-                        echo "Test data inserted successfully\n";  
+                        echo "Test data inserted successfully\n";
                     } else {
                         echo "Error inserting test data: " . mysqli_error($con) . "<br>";  // Log error if insertion fails
                     }
@@ -167,13 +167,21 @@ $course_result = mysqli_query($con, $course_query);
             </select>
 
             <label for="name_of_test">Test Name:</label>
-            <input type="text" id="name_of_test" name="name_of_test" required>
+            <select id="name_of_test" name="name_of_test" required>
+                <option value="MPQ">Manchester Personality Questionnaire (MPQ)</option>
+                <option value="MD5">Mental Ability Test (MD5)</option>
+                <option value="EQ-i:S">BarOn Emotional Quotient Inventory (EQ-i:S)</option>
+            </select>
 
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
 
             <label for="dimension_aspect">Dimension/Aspect:</label>
-            <input type="text" id="dimension_aspect" name="dimension_aspect" required>
+            <select id="dimension_aspect" name="dimension_aspect" required>
+                <option value="Personality">Personality</option>
+                <option value="Cognitive">Cognitive / General Mental Ability</option>
+                <option value="Emotional Intelligence">Emotional Intelligence</option>
+            </select>
 
             <label for="raw_score">Raw Score:</label>
             <input type="number" id="raw_score" name="raw_score" required>

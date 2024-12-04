@@ -202,6 +202,124 @@
             line-height: 1;
             /* Control spacing between lines if necessary */
         }
+
+        .notif {
+            width: 75px;
+            height: 75px;
+        }
+
+        .notif {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .modal-content h1 {
+            text-align: center;
+            color: #28a745;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .scrollable {
+            padding: 20px;
+        }
+
+        .scrollable .announcement {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .scrollable .announcement:last-child {
+            border-bottom: none;
+        }
+
+        .scrollable .announcement img {
+            max-width: 120px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .scrollable .announcement-content {
+            flex: 1;
+        }
+
+        .scrollable .announcement-content h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .scrollable .announcement-content p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .scrollable .announcement-content .meta {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .scrollable::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollable::-webkit-scrollbar-thumb {
+            background-color: #28a745;
+            border-radius: 4px;
+        }
+
+        .scrollable::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .no-announcements {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 16px;
+        }
     </style>
 </head>
 
@@ -222,10 +340,14 @@
             </div>
         </div>
         <div>
+            <img src="images/notif.png" alt="Notification Icon" class="notif" id="notif-icon">
+        </div>
+        <div>
             <img src="images/srb.png" alt="Your Logo" class="logo">
         </div>
+
     </header>
-    <div class="sidebar">
+    <!-- <div class="sidebar">
         <h2>Instructions</h2>
         <p>To fully utilize the system, both the <strong><a href="cumulative_record.php">Cumulative Record</a>
             </strong> and the <strong><a href="personal_info_form.php">Problem Checklist</a></strong> need to be completed. While you can still access the <strong>Testing Service</strong>, please note the following:</p>
@@ -235,20 +357,60 @@
         </ul>
         <p>Ensure that both forms are filled out accurately to enable full functionality of the portal.</p>
         <p>If you have any questions or need assistance, please contact the support team.</p>
+    </div> -->
+
+
+
+
+    <!-- Modal -->
+    <div class="modal" id="announcement-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+
+            <?php include 'user_announce.php'; ?>
+        </div>
     </div>
-
-
     <h1 class="welcome">Bulsu SRC Guidance and Counseling Services Center Portal
     </h1>
 
     <!-- Button Section -->
     <div class="button-container">
+        <button onclick="location.href='services.html'">SERVICES OFFERED</button>
         <button onclick="location.href='cumulative_record.php'">CUMULATIVE RECORD</button>
-        <button onclick="location.href='personal_info_form.php'">PROBLEM CHECKLIST</button>
+        <button id="problem-checklist-btn" onclick="location.href='personal_info_form.php'">PROBLEM CHECKLIST</button>
         <button onclick="location.href='testing_service.php'">TESTING SERVICE</button>
+        <button onclick="location.href='contactus.html'">CONTACT US</button>
     </div>
 
     <script>
+        // Function to check if the service is available
+function checkServiceAvailability() {
+    // Fetch the restriction date from the backend
+    fetch('get_restriction_date.php')
+        .then(response => response.json())
+        .then(data => {
+            const restrictionDate = new Date(data.restriction_date);
+            const currentDate = new Date();
+
+            if (currentDate < restrictionDate) {
+                // Disable the button and show the message
+                document.getElementById('problem-checklist-btn').disabled = true;
+                document.getElementById('problem-checklist-btn').innerText = `Services will resume on ${restrictionDate.toLocaleString()}`;
+                document.getElementById('problem-checklist-btn').onclick = function() {
+                    alert("Services will resume on " + restrictionDate.toLocaleString());
+                };
+            }
+        });
+}
+
+// Call the function to check availability when the page loads
+checkServiceAvailability();
+
+
+
+
+
+
         function toggleDropdown() {
             var dropdownContent = document.getElementById("dropdownContent");
             dropdownContent.classList.toggle("show");
@@ -265,6 +427,28 @@
                 }
             }
         }
+
+
+        const notifIcon = document.getElementById('notif-icon');
+        const modal = document.getElementById('announcement-modal');
+        const closeModal = document.getElementById('close-modal');
+
+        // Open modal on click
+        notifIcon.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        // Close modal on click
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal on outside click
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     </script>
 </body>
 

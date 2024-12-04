@@ -255,10 +255,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
                 const concerns = document.querySelectorAll('input[name="concerns[]"]:checked');
                 if (concerns.length !== 20) {
                     alert("Please select exactly 20 concerns.");
-                    return false;
+                    return false; // Prevent form submission
                 }
                 const confirmation = confirm("Are you sure you want to submit your top 20 concerns?");
-                return confirmation;
+                return confirmation; // Proceed if confirmed
             }
 
             // Function to validate Top 5 concerns selection
@@ -322,10 +322,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
         <h1>Personal Information Form</h1>
     </center>
 
-
+	<button onclick="location.reload();">Show my Top 20 </button>
 
     <?php if (!$top20_submitted): ?>
-        <form action="" method="POST" onsubmit="return validateTop20() && confirmSubmit();">
+        <form id="top20Form" method="POST">
             <center>
                 <h2>Please Select Top 20 Concerns</h2>
             </center>
@@ -556,6 +556,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
 
             <!-- Submit button -->
             <button type="submit" name="submit_top_20">Submit Top 20</button>
+            <!-- <script>
+            window.location.href = 'personal_info_form.php'
+            </script> -->
 
 
 
@@ -597,6 +600,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
             </form>
 
             <script>
+                function reloadPage() {
+                    // This will trigger the page reload after the form is submitted
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 3000); // 100ms delay to ensure form submission is processed first
+                }
                 // JavaScript to count and limit the number of selected checkboxes
                 function updateTop5Counter(checkbox) {
                     const maxSelection = 5;
@@ -609,6 +618,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_top_5'])) {
                     }
                     counter.textContent = selectedCheckboxes.length;
                 }
+                document.getElementById('top20Form').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const formData = new FormData(this);
+
+                    fetch('submit_top_20.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Display Top 5 form without refreshing the page
+                                document.getElementById('top5FormContainer').innerHTML = data.top5FormHtml;
+                                alert('Top 20 submitted successfully!');
+                            } else {
+                                alert('Error submitting Top 20 concerns.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
             </script>
         <?php endif; ?>
 

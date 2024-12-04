@@ -96,6 +96,17 @@ $records_result = mysqli_query($con, $records_query);
 
             xhr.send(`id=${id}&field=${fieldName}&value=${encodeURIComponent(newValue)}`);
         }
+
+        // Print function
+        function printTable() {
+            var printWindow = window.open('', '', 'height=600,width=800'); // Open new print window
+            printWindow.document.write('<html><head><title>Testing Service Records</title></head><body>');
+            printWindow.document.write('<h2>Testing Service Records</h2>'); // Add header to print window
+            printWindow.document.write(document.querySelector('table').outerHTML); // Copy table HTML to print window
+            printWindow.document.write('</body></html>');
+            printWindow.document.close(); // Close the document
+            printWindow.print(); // Trigger print dialog
+        }
     </script>
 </head>
 
@@ -109,12 +120,15 @@ $records_result = mysqli_query($con, $records_query);
             <path d="M8 12H16M8 12L12 8M8 12L12 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </a>
+
     <center>
         <h2>Testing Service Records</h2>
         <form method="post" id="searchForm">
             <input type="text" id="searchInput" name="search" placeholder="Search by name..." autocomplete="off">
             <input type="submit" value="Search">
         </form>
+
+
     </center>
 
     <table>
@@ -156,6 +170,8 @@ $records_result = mysqli_query($con, $records_query);
             <?php endif; ?>
         </tbody>
     </table>
+    <!-- Print Button -->
+    <button onclick="printTable()">Print Records</button>
 
 </body>
 

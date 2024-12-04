@@ -391,7 +391,17 @@ mysqli_close($con);
                 <p>Please fill out all fields. If a field is not applicable, please enter 'N/A'.</p>
                 <div class="form-group">
                     <label for="handicapped">Any Common Handicapped, Ailment, or Problem:</label>
-                    <input type="text" name="handicapped" id="handicapped">
+                    <select name="handicapped" id="handicapped">
+                        <option value="Hearing_Impaired">Hearing Impaired</option>
+                        <option value="Learning_Disability">Learning Disability</option>
+                        <option value="Orthopedic">Orthopedic</option>
+                        <option value="Psychosocial_Disability">Psychosocial Disability</option>
+                        <option value="Vision_Impairment">Vision Impairment</option>
+                        <option value="Chronic_Illness">Chronic Illness</option>
+                        <option value="Intellectual_disability">Intellectual disability</option>
+                        <option value="Communication_disability">Communication disability</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="emergency_contact">Emergency Contact:</label>

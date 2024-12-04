@@ -107,7 +107,7 @@
         }
 
         .dashboard-button {
-            padding: 15px 25px;
+            padding: 15px 20px;
             background-color: #211ACA;
             color: white;
             text-decoration: none;
@@ -178,7 +178,7 @@
             display: block;
         }
 
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -195,7 +195,6 @@
                 width: 100%;
             }
         }
-        
     </style>
 </head>
 
@@ -220,19 +219,25 @@
     <div class="container">
         <h1>Admin Dashboard</h1>
         <div class="button-group">
-            <a href="admin_input.php" class="dashboard-button">Testing Service</a>
+            <a href="announce.php" class="dashboard-button">Announcement</a>
+            <a href="javascript:void(0);" class="dashboard-button" onclick="toggleActionButtons('testing-service')">Testing Service</a>
             <a href="admin_display_selections.php" class="dashboard-button">Mooney Checklist</a>
             <a href="cumulative_records.php" class="dashboard-button">Cumulative Record</a>
             <a href="slip.php" class="dashboard-button">Call Slip</a>
+            <a href="printreport.php" class="dashboard-button">Generate Report</a>
+            <!-- <a href="restrict.php" class="dashboard-button">Generate Report</a> -->
+
+
         </div>
 
-        <!-- <div id="testing-service" class="action-buttons">
+        <div id="testing-service" class="action-buttons">
             <a href="admin_input.php" class="action-button">INSERT</a>
-            <a href="edit_test_data.php" class="action-button">EDIT/DELETE</a>
-        </div> -->
+            <a href="edit_test_data.php" class="action-button">VIEW</a>
+        </div>
     </div>
 
     <script>
+        // Toggle visibility of the dropdown menu
         function toggleDropdown() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -250,6 +255,7 @@
             }
         }
 
+        // Toggle visibility of action buttons based on the service clicked
         function toggleActionButtons(service) {
             const actionButtons = document.getElementById(service);
             if (actionButtons.style.display === "none" || actionButtons.style.display === "") {
